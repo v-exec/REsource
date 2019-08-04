@@ -1,0 +1,657 @@
+* {
+	box-sizing: border-box;
+	font-family: 'M PLUS 1p';
+	color: #ccc;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	background-color: #fafafa;
+	width: 100vw;
+	height: 100vh;
+	min-height: -webkit-fill-available;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+	color: #ccc;
+	-webkit-tap-highlight-color: transparent;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+::-moz-selection,
+::selection {
+	color: #fff;
+	background: #000;
+}
+
+::placeholder {
+	color: #ccc;
+}
+
+:-ms-input-placeholder {
+	color: #ccc;
+}
+
+::-ms-input-placeholder {
+	color: #ccc;
+}
+
+/* login */
+
+#loginHider {
+	z-index: 4;
+	position: absolute;
+	background-color: #fafafa;
+	width: 100%;
+	height: 100%;
+	border-top: solid 1px #ccc;
+	transition: transform ease 1s;
+}
+
+#loginWindow {
+	z-index: 5;
+	display: none;
+	position: absolute;
+	width: 250px;
+	height: 150px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	padding: 25px;
+	border: solid 1px #ccc;
+	background-color: #fafafa;
+	opacity: 0;
+	transition: opacity ease 1s;
+}
+
+#password {
+	position: relative;
+	width: 100%;
+	height: 25px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#loginFeedback {
+	position: absolute;
+	right: 25px;
+	bottom: 25px;
+	text-align: right;
+	font-size: 11px;
+	color: #ff7777;
+}
+
+#loginLogo {
+	position: absolute;
+	width: 250px;
+	height: 250px;
+	left: 50%;
+	top: 80%;
+	transform: translate(-50%, -50%);
+}
+
+.field {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	line-height: normal;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	background-color: #fafafa;
+	padding: 0 5px 0 5px;
+}
+
+.field:focus {
+	outline: none;
+}
+
+/* bar */
+
+#bar {
+	z-index: 3;
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background-color: #fafafa;
+	border-bottom: solid 1px #ccc;
+}
+
+.barButton {
+	z-index: 3;
+	display: inline-block;
+	position: relative;
+	height: 100%;
+	width: calc((100% - 50px) / 2);
+	transition: color ease 1s;
+}
+
+#trkButton {
+
+}
+
+#setButton {
+	width: 50px;
+	border-left: 1px solid #ccc;
+}
+
+#barSelector {
+	z-index: 2;
+	position: absolute;
+	height: 50px;
+	width: calc((100% - 50px) / 2);
+	top: 0;
+	left: 0;
+	background-color: #ccc;
+	transition: transform ease 1s;
+}
+
+.barButtonText {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	transition: color ease 1s;
+}
+
+#trkButtonText {
+	color: #fff;
+}
+
+#logButtonText,
+#setButtonText {
+	color: #ccc;
+}
+
+#setButtonText {
+	transition: all ease 1s;
+	transition-property: color, transform;
+}
+
+/* pages */
+
+#main {
+	width: 100%;
+	height: calc(100vh - 50px - 50px);
+}
+
+.page {
+	position: absolute;
+	width: 100%;
+	height: calc(100vh - 50px - 50px);
+	top: 50px;
+	padding: 20px;
+	overflow: auto;
+	transition: transform ease 1s; 
+}
+
+.createButton {
+	z-index: 1;
+	display: inline-block;
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	height: 14px;
+	transform: translateY(-50%);
+	background-color: #fafafa;
+	text-align: right;
+}
+
+#createBarLog,
+#createBarSector,
+#createBarStorage,
+#createBarSettings {
+	position: absolute;
+	height: 1px;
+	width: calc(100% - 38px);
+	top: 50%;
+	background-color: #ccc;
+}
+
+#createBarSector {
+	width: calc(100% - 56px);
+}
+
+#createBarStorage {
+	width: calc(100% - 62px);
+}
+
+#createBarSettings {
+	width: calc(100% - 56px);
+}
+
+#createButtonTextLog,
+#createButtonTextSector,
+#createButtonTextStorage,
+#createButtonTextSettings {
+	position: absolute;
+	width: 38px;
+	right: 0;
+	top: 50%;
+	font-size: 12px;
+	transform: translateY(calc(-50% - 1px));
+}
+
+#createButtonTextSector {
+	width: 56px;
+}
+
+#createButtonTextStorage {
+	width: 62px;
+}
+
+#createButtonTextSettings {
+	width: 56px;
+}
+
+#log {
+	transform: translateX(100%);
+}
+
+#set {
+	border-top: solid 1px #ccc;
+	background-color: #fafafa;
+	height: calc(100vh - 50px - 50px + 1px);
+	transform: translateY(100%);
+}
+
+/* logs */
+
+.log {
+	position: relative;
+	width: 100%;
+	height: 80px;
+	border-bottom: solid 1px #ccc;
+}
+
+.logAmount {
+	display: inline-block;
+	position: relative;
+	width: 35%;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+	font-family: 'Roboto Mono';
+	font-size: 30px;
+	font-weight: 400;
+	color: #ccc;
+	overflow: hidden;
+}
+
+.logFee {
+	display: inline-block;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	font-family: 'Roboto Mono';
+	font-size: 12px;
+}
+
+.logTransaction,
+.logDate {
+	display: inline-block;
+	position: absolute;
+	left: calc(40% + 5px);
+	top: calc(50% - 9px);
+	transform: translateY(-50%);
+	font-size: 12px;
+	font-weight: 500;
+	color: #ccc;
+}
+
+.logDate {
+	top: calc(50% + 9px);
+}
+
+.logSectorIcon {
+	display: inline-block;
+	position: absolute;
+	font-size: 32px;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #ccc;
+}
+
+.logGiverIcon,
+.logRecieverIcon {
+	position: relative;
+	font-size: 12px;
+	top: 1px;
+}
+
+/* tracking */
+
+
+
+/* set */
+
+.setPage {
+	width: 100%;
+	line-height: 40px;
+	margin: 0;
+	padding: 20px 20px 10px 20px;
+	list-style-type: none;
+	columns: 2;
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	column-gap: 10px;
+}
+
+.itemsListItem {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: #fafafa;
+	transition: background-color ease 1s;
+}
+
+.itemsListItem:focus {
+	background-color: #ccc;
+}
+
+.itemsListItem:focus * {
+	color: #fafafa !important;
+}
+
+.itemsListItemText {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	color: #ccc;
+	transition: color ease 1s;
+}
+
+.itemsListItemIcon {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	left: 15px;
+	font-size: 24px;
+	transform: translateY(-50%);
+	transition: color ease 0.6s;
+}
+
+#settingsList {
+	padding: 20px 20px 10px 20px;
+}
+
+#globalCurrency {
+	width: 30px;
+	text-align: center;
+}
+
+/* creation */
+
+.creationForm {
+	z-index: 0;
+	position: relative;
+	max-height: 0;
+	overflow: hidden;
+	border-bottom: solid 1px #ccc;
+	transition: all ease 1s;
+	transition-property: max-height, padding;
+}
+
+.createField,
+.createFieldSmall {
+	display: inline-block;
+	margin-right: 20px;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	line-height: normal;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	background-color: #fafafa;
+	padding: 0 5px 0 5px;
+}
+
+.createFieldSmall {
+	margin: 0;
+}
+
+.createField:focus,
+.createFieldSmall:focus {
+	outline: none;
+}
+
+.selector {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	display: inline-block;
+	font-size: 14px;
+    height: 21px;
+    padding-left: 10px;
+    background-color: #fafafa;
+    border: solid 1px #ccc;
+}
+
+.selectorOption {
+	background-color: #fafafa;
+	color: #ccc;
+}
+
+.selector:focus,
+.selectorOption:focus {
+	outline: none;
+}
+
+.selectorOption:hover,
+.selectorOption:active,
+.selectorOption:focus {
+	background-color: #ccc;
+	color: #fafafa;
+}
+
+.createSlash {
+	width: 10px;
+}
+
+.createDivider {
+	width: 100%;
+	height: 20px;
+}
+
+.createTypeBarSelector {
+	z-index: -1;
+	display: inline-block;
+	position: absolute;
+	width: calc(100% / 3);
+	height: 100%;
+	top: 0;
+	transform: translateX(100%);
+	background-color: #ccc;
+	transition: transform ease 1s;
+}
+
+#createLogAmount {
+	width: calc(50% - (20px + 30px + 20px) - (10px));
+}
+
+#createLogCurrency {
+	width: 30px;
+	text-align: center;
+}
+
+#createLogSectorList {
+	width: 50%;
+}
+
+#createLogYear {
+	width: 45px;
+	text-align: center;
+}
+
+#createLogMonth,
+#createLogDay {
+	width: 30px;
+	text-align: center;
+}
+
+.createTypeBarButtonHolder {
+	position: relative;
+	width: 100%;
+	height: 45px;
+	border: solid 1px #ccc;
+}
+
+.createTypeBarButton {
+	display: inline-block;
+	position: relative;
+	width: calc(100% / 3);
+	height: 100%;
+}
+
+#createLogSpending {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+.createTypeBarButtonText,
+.createFormButtonText {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 14px;
+	transition: color ease 1s;
+}
+
+#createTypeBarButtonSpending {
+	color: #fafafa;
+}
+
+#createLogRightStorageList,
+#createLogFee,
+#createLogSource {
+	display: none;
+}
+
+#createLogLeftStorageList,
+#createLogRightStorageList,
+#createLogFee,
+#createLogSource,
+#createLogDestination {
+	position: relative;
+	width: 40%;
+}
+
+#createLogRightStorageList,
+#createLogDestination {
+	float: right;
+	clear: right;
+}
+
+#createLogFee {
+	width: 15%;
+	left: 9%;
+	line-height: 16px;
+	transform: translateX(-50%);
+	text-align: center;
+}
+
+.colorPicker {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	right: 25%;
+	background-color: #ccc;
+	border-radius: 100px;
+}
+
+#createStorageColor {
+	transform: translateY(-50%);
+}
+
+.createFormButton {
+	display: inline-block;
+	position: relative;
+	width: 25%;
+	height: 45px;
+	border: solid 1px #ccc;
+}
+
+#logDelete,
+#sectorDelete,
+#storageDelete {
+
+}
+
+#logCreate,
+#sectorCreate,
+#storageCreate {
+	float: right;
+	clear: right;
+}
+
+#createSectorName,
+#createStorageName,
+#createStorageAmount {
+	width: 50%;
+}
+
+.createFormFeedback {
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	bottom: 38px;
+	transform: translateX(-50%);
+	font-size: 11px;
+	color: #ff7777;
+}
+
+/* footer */
+
+#foot {
+	z-index: 3;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #ccc;
+}
+
+#footLogo {
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	right: 0;
+}
+
+#footTotal,
+#footMonth {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	transform: translateY(-50%);
+	font-family: 'Roboto Mono';
+	font-size: 14px;
+	color: #fafafa;
+}
+
+#footTotal {
+
+}
+
+#footMonth {
+	left: 40%;
+	transform: translate(-50%, -50%);
+	white-space: pre;
+}

@@ -1,0 +1,19 @@
+{
+	"sectors": [
+		{
+			"name": "Food",
+			"icon": "fastfood",
+			"color": "orange"
+		},
+		{
+			"name": "Banking",
+			"icon": "attach_money",
+			"color": "green"
+		},
+				{
+			"name": "Sale",
+			"icon": "compare_arrows",
+			"color": "blue"
+		}
+	]
+}

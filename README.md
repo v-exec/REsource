@@ -1,2 +1,3 @@
 # REsource
-Minimal financial transaction tracking web application.
+
+_REsource_ is a finance tracking tool.
