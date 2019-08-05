@@ -1,6 +1,6 @@
 var apiPath = 'https://exp.v-os.ca/resource/scripts/private/api.php';
 
-function request(type, callback) {
+function request(type, callback, data = null, id = null) {
 	//create request
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', apiPath, true);
@@ -8,7 +8,7 @@ function request(type, callback) {
 	xhr.onload = function() {
 		if (xhr.status === 200) {
 			//handle response
-			callback(xhr.responseText);
+			if (callback) callback(xhr.responseText);
 		}
 		else {
 			//handle error
@@ -21,39 +21,39 @@ function request(type, callback) {
 
 	switch(type) {
 		case 'newLog':
-			//
+			query = type + '&data=' + data;
 			break;
 
 		case 'newSector':
-			//
+			query = type + '&data=' + data;
 			break;
 
 		case 'newStorage':
-			//
+			query = type + '&data=' + data;
 			break;
 
 		case 'modifyLog':
-			//
+			query = type + '&id=' + id + '&data=' + data;
 			break;
 
 		case 'modifySector':
-			//
+			query = type + '&id=' + id + '&data=' + data;
 			break;
 
 		case 'modifyStorage':
-			//
+			query = type + '&id=' + id + '&data=' + data;
 			break;
 
 		case 'deleteLog':
-			//
+			query = type + '&id=' + id;
 			break;
 
 		case 'deleteSector':
-			//
+			query = type + '&id=' + id;
 			break;
 
 		case 'deleteStorage':
-			//
+			query = type + '&id=' + id;
 			break;
 
 		case 'readAll':

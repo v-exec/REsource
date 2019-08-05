@@ -26,6 +26,17 @@ function Storage(name, amount, icon, color) {
 	}
 
 	this.createElement();
+
+	this.createJSON = function() {
+		var obj = new Object();
+
+		obj.name = this.name;
+		obj.amount = this.amount;
+		obj.icon = this.icon;
+		obj.color = this.color;
+		
+		return JSON.stringify(obj);
+	}
 }
 
 function findStorage(storageName) {

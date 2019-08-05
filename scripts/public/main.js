@@ -414,6 +414,7 @@ function switchLogCreateSelection(activate) {
 	}
 }
 
+//todo: save as cookie, make monthly stats reflect currency conversion
 function changeCurrency() {
 	if (currencySetting.value != '' || currencySetting != null) {
 		switch (currencySetting.value) {
@@ -532,12 +533,15 @@ function createLog() {
 		logCreateDay.value != '') {
 
 		var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
+		var tempLog;
 
 		switch (logFormSelectionType) {
 			case 'Acquisition':
 				if (logCreateSource.value != '') {
 					dataConfirm = true;
-					logs.push(new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, logCreateSector.value));
+					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, logCreateSector.value);
+					logs.push(tempLog);
+					request('newLog', null, tempLog.createJSON());
 					refreshLogList();
 				}
 				break;
@@ -545,14 +549,18 @@ function createLog() {
 			case 'Spending':
 				if (logCreateDestination.value != '') {
 					dataConfirm = true;
-					logs.push(new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, logCreateSector.value));
+					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, logCreateSector.value);
+					logs.push(tempLog);
+					request('newLog', null, tempLog.createJSON());
 					refreshLogList();
 				}
 				break;
 
 			case 'Movement':
 				dataConfirm = true;
-				logs.push(new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, logCreateSector.value));
+				tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, logCreateSector.value);
+				logs.push(tempLog);
+				request('newLog', null, tempLog.createJSON());
 				refreshLogList();
 				break;
 		}

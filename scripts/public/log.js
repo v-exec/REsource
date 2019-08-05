@@ -7,26 +7,27 @@ function Log(amount, currency, type, source, destination, fee, date, sector, id 
 	this.fee = fee;
 	this.date = date;
 	this.sector = sector;
-	this.id;
+
+	this.id = logs.length;
 	this.element;
 
 	//move money to appropriate storage todo: take into account currency conversions, make functional
-	// switch (this.type) {
-	// 	case 'Acquisition':
-	// 		if (findStorage(this.source)) findStorage(this.source).amount += this.amount;
-	// 		break;
+	switch (this.type) {
+		case 'Acquisition':
+			if (findStorage(this.source)) findStorage(this.source).amount += this.amount;
+			break;
 
-	// 	case 'Spending':
-	// 		if (findStorage(this.destination)) findStorage(this.destination).amount -= this.amount;
-	// 		break;
+		case 'Spending':
+			if (findStorage(this.destination)) findStorage(this.destination).amount -= this.amount;
+			break;
 
-	// 	case 'Movement':
-	// 		if (findStorage(this.destination) && findStorage(this.source)) {
-	// 			findStorage(this.source).amount -= this.amount;
-	// 			findStorage(this.destination).amount += (this.amount - this.fee);
-	// 		}
-	// 		break;
-	// }
+		case 'Movement':
+			if (findStorage(this.destination) && findStorage(this.source)) {
+				findStorage(this.source).amount -= this.amount;
+				findStorage(this.destination).amount += (this.amount - this.fee);
+			}
+			break;
+	}
 
 	updateMonthlyStats();
 
@@ -140,16 +141,19 @@ function Log(amount, currency, type, source, destination, fee, date, sector, id 
 
 	this.createElement();
 
-	this.assignID = function() {
-		
-	}
-
-	//automatically creates ID if log was created without one
-	if (this.id == null) {
-		this.assignID();
-	}
-
 	this.createJSON = function() {
+		var obj = new Object();
 
+		obj.amount = Number(this.amount);
+		obj.currency = this.currency;
+		obj.type = this.type;
+		obj.source = this.source;
+		obj.destination = this.destination;
+		obj.fee = Number(this.fee);
+		obj.date = this.date;
+		obj.sector = this.sector;
+		obj.id = Number(this.id);
+
+		return JSON.stringify(obj);
 	}
 }

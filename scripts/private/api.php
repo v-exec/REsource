@@ -7,6 +7,7 @@ session_start();
 if (!hash_equals($_SESSION['front'], $_POST['front']) || !password_verify($frontDoor, $_POST['front']) ||
 	!hash_equals($_SESSION['back'], $_POST['back']) || !password_verify($backDoor, $_POST['back']) ||
 	!password_verify($_POST['pass'], $_SESSION['pass'])) {
+		echo 'Improper credentials.';
 		return;
 	}
 
@@ -56,43 +57,47 @@ switch ($_POST['type']) {
 		break;
 }
 
-function parseJSON($file) {
-	$c = file_get_contents('../../../data/'. $file .'.json');
-	return $j = json_decode($c, TRUE);
-}
-
 function newLog($data) {
 	//append new data
-	$j = parseJSON('log');
-	array_push($j['log'], $data);
-	json_encode($j);
+	$c = file_get_contents('../../data/log.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+
+	array_push($j['logs'], $data);
+	$j = json_encode($j);
 
 	//update file
-	$f = fopen('../../../data/log.json','w');
+	$f = fopen('../../data/log.json','w');
 	fwrite($f, $j);
 	fclose($f);
 	return;
 }
 
 function newCategory($data) {
-	$j = parseJSON('sector');
+	$c = file_get_contents('../../sector/log.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+	
 	array_push($j['sector'], $data);
-	json_encode($j);
+	$j = json_encode($j);
 
 	//update file
-	$f = fopen('../../../data/sector.json','w');
+	$f = fopen('../../data/sector.json','w');
 	fwrite($f, $j);
 	fclose($f);
 	return;
 }
 
 function newStorage($data) {
-	$j = parseJSON('storage');
+	$c = file_get_contents('../../data/storage.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+	
 	array_push($j['storage'], $data);
-	json_encode($j);
+	$j = json_encode($j);
 
 	//update file
-	$f = fopen('../../../data/storage.json','w');
+	$f = fopen('../../data/storage.json','w');
 	fwrite($f, $j);
 	fclose($f);
 	return;
