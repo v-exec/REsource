@@ -83,8 +83,8 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 				<a href="#" class="createButton" id="createSector"><div id="createBarSector"></div><span id="createButtonTextSector">+ Sector</span></a>
 				<div class="creationForm" id="focusSector">
 					<input class="createFieldSmall" id="createSectorName" maxlength="20" placeholder="name" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
-					<a href="#" class="colorPicker" id="createSectorColor"><div class="colorPickerDot" id="createSectorColorDot"></div></a>
-					<a href="#" class="iconPicker" id="createSectorIcon"><i class="iconPickerIcon material-icons" id="createSectorIconIcon"></i></a>
+					<a href="#" class="colorPicker" id="createSectorColor" onclick="openColorPicker()"></a>
+					<a href="#" class="iconPicker" id="createSectorIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createSectorIconIcon">trip_origin</i></a>
 
 					<div class="createDivider"></div>
 					<div class="createDivider"></div>
@@ -103,8 +103,8 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 					<div class="createDivider"></div>
 
 					<input class="createFieldSmall" id="createStorageAmount" maxlength="20" placeholder="amount" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
-					<a href="#" class="colorPicker" id="createStorageColor"><div class="colorPickerDot" id="createStorageColorDot"></div></a>
-					<a href="#" class="iconPicker" id="createStorageIcon"><i class="iconPickerIcon material-icons" id="createStorageIconIcon"></i></a>
+					<a href="#" class="colorPicker" id="createStorageColor" onclick="openColorPicker()"></a>
+					<a href="#" class="iconPicker" id="createStorageIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createStorageIconIcon">trip_origin</i></a>
 
 					<div class="createDivider"></div>
 
@@ -117,14 +117,19 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 				<div class="createButton" id="createSettings"><div id="createBarSettings"></div><span id="createButtonTextSettings">Settings</span></div>
 				<div id="settingsList">
-					<input class="createFieldSmall" id="globalCurrency" maxlength="1" autocomplete="off" type="text" onclick="handleFormClick(event)" onkeypress="changeCurrency()"></input>
+					<input class="createFieldSmall" id="globalCurrency" maxlength="1" autocomplete="off" type="text" onclick="handleFormClick(event)" oninput="changeCurrency()"></input>
 				</div>
 			</div>
 		</div>
 
+		<div id="colors">
+		</div>
+
+		<div id="icons">
+		</div>
+
 		<div id="foot">
 			<span id="footTotal"></span>
-			<span id="footMonth"></span>
 			<img id="footLogo" src="assets/media/REsource logo_w.svg"></img>
 		</div>
 		

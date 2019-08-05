@@ -82,6 +82,10 @@ function populateContent() {
 		//create options in dropdown lists
 		createOptions();
 
+		//create colors and icons in pickers
+		createColors();
+		createIcons();
+
 		//set currency placeholder in settings
 		currencySetting.placeholder = currency;
 
@@ -144,7 +148,7 @@ function updateMonthlyStats() {
 		}
 	}
 
-	footMonth.innerText = '+' + totalAcquisition + currency + '   ' + '-' + totalSpending + currency;
+	footTotal.innerText = total + currency + '   ' + '+' + totalAcquisition + currency + '   ' + '-' + totalSpending + currency;
 }
 
 function refreshLogList() {
@@ -213,6 +217,32 @@ function refreshLogForm() {
 	logCreateSource.value = null;
 	logCreateFee.value = null;
 	logCreateDestination.value = null;
+}
+
+function createColors() {
+	for (var i = 0; i < colorList.length; i++) {
+		var col = document.createElement('A');
+		col.href = '#';
+		col.className = 'colorChoice';
+		col.style.backgroundColor = '#' + colorList[i];
+		col.addEventListener('click', function() {
+			pickColor(this);
+		});
+		colorPicker.appendChild(col);
+	}
+}
+
+function createIcons() {
+	for (var i = 0; i < iconList.length; i++) {
+		var ico = document.createElement('I');
+		ico.href = '#';
+		ico.className = 'iconChoice material-icons';
+		ico.innerText = iconList[i];
+		ico.addEventListener('click', function() {
+			pickIcon(this);
+		});
+		iconPicker.appendChild(ico);
+	}
 }
 
 // EVENT LISTENERS
@@ -389,17 +419,65 @@ function changeCurrency() {
 		switch (currencySetting.value) {
 			case '$':
 				currency = '$';
+				currencySetting.placeholder = currency;
+				updateMonthlyStats();
 				break;
 
 			case '¥':
 				currency = '¥';
+				currencySetting.placeholder = currency;
+				updateMonthlyStats();
 				break;
 
 			case '€':
 				currency = '€';
+				currencySetting.placeholder = currency;
+				updateMonthlyStats();
 				break;
 		}
 	}
+}
+
+function openColorPicker() {
+	colorPicker.style.transform = 'translateX(-1px)';
+}
+
+function closeColorPicker() {
+	colorPicker.style.transform = 'translateX(calc(100% + 1px))';
+}
+
+function pickColor(swatch) {
+	switch (openMenu) {
+		case 'sector':
+			sectorCreateColor.style.backgroundColor = swatch.style.backgroundColor;
+			break;
+
+		case 'storage':
+			storageCreateColor.style.backgroundColor = swatch.style.backgroundColor;
+			break;
+	}
+	closeColorPicker();
+}
+
+function openIconPicker() {
+	iconPicker.style.transform = 'translateX(-1px)';
+}
+
+function closeIconPicker() {
+	iconPicker.style.transform = 'translateX(calc(100% + 1px))';
+}
+
+function pickIcon(ico) {
+	switch (openMenu) {
+		case 'sector':
+			sectorCreateIconIcon.innerText = ico.innerText;
+			break;
+
+		case 'storage':
+			storageCreateIconIcon.innerText = ico.innerText;
+			break;
+	}
+	closeIconPicker();
 }
 
 // CREATION AND DELETION

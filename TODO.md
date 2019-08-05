@@ -1,4 +1,4 @@
-- finish creation UI
+- polish creation UI
 - finish creation infrastructure
 - update server with user data
 - add data editing

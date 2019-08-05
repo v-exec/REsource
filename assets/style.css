@@ -301,7 +301,7 @@ a:focus {
 .logDate {
 	display: inline-block;
 	position: absolute;
-	left: calc(40% + 5px);
+	left: calc(35% + 15px);
 	top: calc(50% - 9px);
 	transform: translateY(-50%);
 	font-size: 12px;
@@ -568,14 +568,29 @@ a:focus {
 
 .colorPicker {
 	position: absolute;
-	height: 40px;
 	width: 40px;
+	height: 40px;
 	right: 25%;
 	background-color: #ccc;
 	border-radius: 100px;
 }
 
+.iconPicker {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	right: 20px;
+}
+
+.iconPickerIcon {
+	font-size: 42px;
+}
+
 #createStorageColor {
+	transform: translateY(-50%);
+}
+
+#createStorageIcon {
 	transform: translateY(-50%);
 }
 
@@ -616,6 +631,40 @@ a:focus {
 	color: #ff7777;
 }
 
+/* color and icon pickers */
+
+#colors,
+#icons {
+	z-index: 3;
+	display: inline-block;
+	position: absolute;
+	width: calc(100% + 1px);
+	height: calc(100% - 100px);
+	top: 50px;
+	padding: 20px;
+	border-left: solid 1px #ccc;
+	background-color: #fafafa;
+	overflow: auto;
+	transform: translateX(calc(100% + 1px));
+	transition: transform ease 1s;
+}
+
+.colorChoice,
+.iconChoice {
+	display: inline-block;
+	width: calc((100% - 60%) / 3);
+	padding-top: calc((100% - 60%) / 3); /* 1:1 Aspect Ratio */
+	border-radius: 100px;
+	margin-bottom: 20px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.iconChoice {
+	border-radius: 0;
+	font-size: 42px;
+}
+
 /* footer */
 
 #foot {
@@ -634,8 +683,7 @@ a:focus {
 	right: 0;
 }
 
-#footTotal,
-#footMonth {
+#footTotal {
 	display: inline-block;
 	position: absolute;
 	top: 50%;
@@ -644,14 +692,25 @@ a:focus {
 	font-family: 'Roboto Mono';
 	font-size: 14px;
 	color: #fafafa;
-}
-
-#footTotal {
-
-}
-
-#footMonth {
-	left: 40%;
-	transform: translate(-50%, -50%);
 	white-space: pre;
+}
+
+/* Queries */
+
+@media (max-width: 400px) {
+	.setPage {
+	columns: 1;
+	-webkit-columns: 1;
+	-moz-columns: 1;
+	}
+
+	.logAmount {
+		width: 32%;
+		font-size: 20px;
+	}
+
+	.logTransaction,
+	.logDate {
+		left: calc(32% + 15px);
+	}
 }
