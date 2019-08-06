@@ -17,7 +17,7 @@ function Sector(name, icon, color) {
 
 		var text = document.createElement('SPAN');
 		text.className = 'itemsListItemText';
-		text.innerHTML = this.name;
+		text.innerText = this.name;
 
 		container.appendChild(icon);
 		container.appendChild(text);
@@ -37,8 +37,9 @@ function Sector(name, icon, color) {
 	}
 }
 
-function findSector(sectoreName) {
+function findSector(sectorName) {
 	for (var i = 0; i < sectors.length; i++) {
 		if (sectors[i].name == sectorName) return sectors[i];
 	}
+	return false;
 }

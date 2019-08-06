@@ -54,8 +54,18 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 				break;
 		}
 
-		var amountNode = document.createTextNode(mod + this.amount.toString() + this.currency);
-		amount.appendChild(amountNode);
+		//always display amount with 0 decimals, unless exceeding thousands,
+		//then add "k" for thousand and single decimal
+		if (this.amount.toFixed().length < 2) {
+			amount.innerText = mod + this.amount.toFixed(1) + this.currency;
+		} else if (this.amount.toString().length <= 5) {
+			amount.innerText = mod + this.amount.toFixed() + this.currency;
+		} else {
+			var treatedAmount = this.amount / 1000;
+			treatedAmount = treatedAmount.toFixed(1) + 'k';
+			amount.innerText = mod + treatedAmount + this.currency;
+		}
+		
 		container.appendChild(amount);
 
 		//fee
@@ -76,41 +86,51 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		var transactionIconReciever = '<i class="logRecieverIcon material-icons"';
 		var isMovement = false;
 
-		for (var i = 0; i < storages.length; i++) {
-			switch (this.type) {
-				case 'Acquisition':
-					if (this.destination == storages[i].name) {
-						transactionIconReciever += 'style="color:' + storages[i].color +'">';
-						transactionIconReciever += storages[i].icon + '</i>';
-						transactionNode = this.source + ' > ' + transactionIconReciever + ' ' + this.destination;
-					}
-					break;
-
-				case 'Spending':
-					if (this.source == storages[i].name) {
-						transactionIconGiver += 'style="color:' + storages[i].color +'">';
-						transactionIconGiver += storages[i].icon + '</i>';
-						transactionNode = transactionIconGiver + ' ' + this.source + ' > ' + this.destination;
-					}
-					break;
-
-				case 'Movement':
-					isMovement = true;
-					if (this.destination == storages[i].name) {
-						transactionIconReciever += 'style="color:' + storages[i].color +'">';
-						transactionIconReciever += storages[i].icon + '</i>';
-					}
-
-					if (this.source == storages[i].name) {
-						transactionIconGiver += 'style="color:' + storages[i].color +'">';
-						transactionIconGiver += storages[i].icon + '</i>';
-					}
-					break;
-
-				default:
+		switch (this.type) {
+			case 'Acquisition':
+				if (findStorage(this.destination)) {
+					var s = findStorage(this.destination);
+					transactionIconReciever += 'style="color:' + s.color +'">';
+					transactionIconReciever += s.icon + '</i>';
+					transactionNode = this.source + ' > ' + transactionIconReciever + ' ' + this.destination;
+				} else {
 					transactionNode = this.source + ' > ' + this.destination;
-					break;
-			}
+				}
+				break;
+
+			case 'Spending':
+				if (findStorage(this.source)) {
+					var s = findStorage(this.source);
+					transactionIconGiver += 'style="color:' + s.color +'">';
+					transactionIconGiver += s.icon + '</i>';
+					transactionNode = transactionIconGiver + ' ' + this.source + ' > ' + this.destination;
+				} else {
+					transactionNode = this.source + ' > ' + this.destination;
+				}
+				break;
+
+			case 'Movement':
+				isMovement = true;
+				if (findStorage(this.destination)) {
+					var s = findStorage(this.destination);
+					transactionIconReciever += 'style="color:' + s.color +'">';
+					transactionIconReciever += s.icon + '</i>';
+				} else {
+					transactionIconGiver = '';
+				}
+
+				if (findStorage(this.source)) {
+					var s = findStorage(this.source);
+					transactionIconGiver += 'style="color:' + s.color +'">';
+					transactionIconGiver += s.icon + '</i>';
+				} else {
+					transactionIconGiver = '';
+				}
+				break;
+
+			default:
+				transactionNode = this.source + ' > ' + this.destination;
+				break;
 		}
 
 		if (isMovement) transactionNode = transactionIconGiver + ' ' + this.source + ' > ' + transactionIconReciever + ' ' + this.destination;
@@ -121,19 +141,23 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		//date
 		var date = document.createElement('SPAN');
 		date.className = 'logDate';
-		var dateNode = document.createTextNode(this.date);
-		date.appendChild(dateNode);
+		date.innerText = this.date
 		container.appendChild(date);
 
 		//sector icon
-		var sectorIcon = document.createElement('i');
-		sectorIcon.className = 'logSectorIcon material-icons';
-		for (var i = 0; i < sectors.length; i++) {
-			if (sectors[i].name == this.sector) {
-				sectorIcon.innerText = sectors[i].icon;
-				sectorIcon.style.color = sectors[i].color;
-			}
+		if (findSector(this.sector)) {
+			var s = findSector(this.sector);
+			var sectorIcon = document.createElement('i');
+			sectorIcon.className = 'logSectorIcon material-icons';
+			sectorIcon.innerText = s.icon;
+			sectorIcon.style.color = s.color;
+		} else {
+			var sectorIcon = document.createElement('i');
+			sectorIcon.className = 'logSectorIcon material-icons';
+			sectorIcon.innerText = 'trip_origin';
+			sectorIcon.style.color = '#ccc';
 		}
+
 		container.appendChild(sectorIcon);
 
 		this.element = container;
@@ -156,4 +180,11 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 
 		return JSON.stringify(obj);
 	}
+}
+
+function findLog(id) {
+	for (var i = 0; i < logs.length; i++) {
+		if (logs[i].id == id) return logs[i];
+	}
+	return false;
 }

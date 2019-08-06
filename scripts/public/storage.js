@@ -1,7 +1,5 @@
-function Storage(name, amount, storageCurrency, icon, color) {
+function Storage(name, icon, color) {
 	this.name = name;
-	this.amount = amount;
-	this.currency = storageCurrency;
 	this.icon = icon;
 	this.color = color;
 
@@ -32,8 +30,6 @@ function Storage(name, amount, storageCurrency, icon, color) {
 		var obj = new Object();
 
 		obj.name = this.name;
-		obj.amount = Number(this.amount);
-		obj.currency = this.currency;
 		obj.icon = this.icon;
 		obj.color = this.color;
 		
@@ -45,4 +41,5 @@ function findStorage(storageName) {
 	for (var i = 0; i < storages.length; i++) {
 		if (storages[i].name == storageName) return storages[i];
 	}
+	return false;
 }

@@ -132,7 +132,8 @@ a:focus {
 	position: relative;
 	height: 100%;
 	width: calc((100% - 50px) / 2);
-	transition: color ease 1s;
+	transition: all ease 1s;
+	transition-property: color, background-color;
 }
 
 #trkButton {
@@ -480,8 +481,7 @@ a:focus {
 	width: calc(50% - (20px + 30px + 20px) - (10px));
 }
 
-#createLogCurrency,
-#createStorageCurrency {
+#createLogCurrency {
 	width: 30px;
 	text-align: center;
 }
@@ -584,14 +584,6 @@ a:focus {
 	font-size: 48px;
 }
 
-#createStorageColor {
-	transform: translateY(-60%);
-}
-
-#createStorageIcon {
-	transform: translateY(-59%);
-}
-
 .createFormButton {
 	display: inline-block;
 	position: relative;
@@ -614,13 +606,8 @@ a:focus {
 }
 
 #createSectorName,
-#createStorageName,
-#createStorageAmount {
+#createStorageName {
 	width: 50%;
-}
-
-#createStorageAmount {
-	width: calc(50% - (30px + 20px));
 }
 
 .createFormFeedback {
@@ -685,7 +672,7 @@ a:focus {
 	right: 0;
 }
 
-#footTotal {
+#footData {
 	display: inline-block;
 	position: absolute;
 	top: 50%;

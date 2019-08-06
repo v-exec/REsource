@@ -18,8 +18,7 @@ var trkButtonText = document.getElementById('trkButtonText');
 var logButtonText = document.getElementById('logButtonText');
 var setButtonText = document.getElementById('setButtonText');
 
-var footTotal = document.getElementById('footTotal');
-var footMonth = document.getElementById('footMonth');
+var footData = document.getElementById('footData');
 
 var trkScreen = document.getElementById('trk');
 var logScreen = document.getElementById('log');
@@ -78,8 +77,6 @@ var storageMenu = document.getElementById('focusStorage');
 var storageCreateButton = document.getElementById('createStorage');
 
 var storageCreateName = document.getElementById('createStorageName');
-var storageCreateAmount = document.getElementById('createStorageAmount');
-var storageCreateCurrency = document.getElementById('createStorageCurrency');
 var storageCreateColor = document.getElementById('createStorageColor');
 var storageCreateIcon = document.getElementById('createStorageIcon');
 var storageCreateIconIcon = document.getElementById('createStorageIconIcon');
@@ -98,6 +95,10 @@ var setOpen = false;
 
 var openMenu = '';
 var logFormSelectionType = 'Spending';
+
+var selectedLog = null;
+var selectedSector = null;
+var selectedStorage = null;
 
 //settings
 var currency = '¥';

@@ -99,13 +99,10 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 				<a href="#" class="createButton" id="createStorage"><div id="createBarStorage"></div><span id="createButtonTextStorage">+ Storage</span></a>
 				<div class="creationForm" id="focusStorage">
 					<input class="createFieldSmall" id="createStorageName" maxlength="20" placeholder="name" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
-
-					<div class="createDivider"></div>
-
-					<input class="createField" id="createStorageAmount" maxlength="20" placeholder="amount" autocomplete="off" type="text" onclick="handleFormClick(event)"></input><input class="createFieldSmall" id="createStorageCurrency" maxlength="1" placeholder="cur" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
 					<a href="#" class="colorPicker" id="createStorageColor" onclick="openColorPicker()"></a>
 					<a href="#" class="iconPicker" id="createStorageIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createStorageIconIcon">trip_origin</i></a>
 
+					<div class="createDivider"></div>
 					<div class="createDivider"></div>
 
 					<a href="#" class="createFormButton" id="storageDelete" onclick="deleteStorage()"><span class="createFormButtonText">Delete</span></a>
@@ -129,7 +126,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 		</div>
 
 		<div id="foot">
-			<span id="footTotal"></span>
+			<span id="footData"></span>
 			<img id="footLogo" src="assets/media/REsource logo_w.svg"></img>
 		</div>
 		

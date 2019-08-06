@@ -70,7 +70,7 @@ function populateContent() {
 		}
 
 		for (var i = 0; i < jsonStorages.length; i++) {
-			storages.push(new Storage(jsonStorages[i].name, jsonStorages[i].amount, jsonStorages[i].currency, jsonStorages[i].icon, jsonStorages[i].color));
+			storages.push(new Storage(jsonStorages[i].name, jsonStorages[i].icon, jsonStorages[i].color));
 			refreshStorageList();
 		}
 
@@ -126,14 +126,6 @@ function refreshOptions() {
 
 //todo: limit to month, take into account currency
 function updateStats() {
-	var total = 0;
-
-	for (var i = 0; i < storages.length; i++) {
-		total += storages[i].amount;
-	}
-
-	footTotal.innerText = total + currency;
-
 	var totalAcquisition = 0;
 	var totalSpending = 0;
 
@@ -153,7 +145,7 @@ function updateStats() {
 		}
 	}
 
-	footTotal.innerText = total + currency + '   ' + '+' + totalAcquisition + currency + '   ' + '-' + totalSpending + currency;
+	footData.innerText = totalAcquisition + currency + '   ' + '-' + totalSpending + currency;
 }
 
 function refreshLogList() {
@@ -232,8 +224,6 @@ function refreshSectorForm() {
 
 function refreshStorageForm() {
 	storageCreateName.value = null;
-	storageCreateAmount.value = null;
-	storageCreateCurrency.value = null;
 	storageCreateColor.style.backgroundColor = '#ccc';
 	storageCreateIconIcon.innerText = 'trip_origin';
 }
@@ -615,20 +605,8 @@ function deleteSector() {
 }
 
 function createStorage() {
-	if (isNaN(storageCreateAmount.value)) {
-		storageCreateFeedback.innerText = '"Amount" is not a number.';
-		return;
-	}
-
-	if (!isNaN(storageCreateCurrency.value)) {
-		storageCreateFeedback.innerText = '"Currency" is not a valid value.';
-		return;
-	}
-
-	if (storageCreateName.value != '' &&
-		storageCreateAmount.value != '' &&
-		storageCreateCurrency.value != '') {
-		var tempStorage = new Storage(storageCreateName.value, storageCreateAmount.value, storageCreateCurrency.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
+	if (storageCreateName.value != '') {
+		var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
 		storages.push(tempStorage);
 		request('newStorage', null, tempStorage.createJSON());
 		refreshStorageList();
