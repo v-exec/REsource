@@ -73,12 +73,12 @@ function newLog($data) {
 	return;
 }
 
-function newCategory($data) {
-	$c = file_get_contents('../../sector/log.json');
+function newSector($data) {
+	$c = file_get_contents('../../data/sector.json');
 	$j = json_decode($c, TRUE);
 	$data = json_decode($data);
 	
-	array_push($j['sector'], $data);
+	array_push($j['sectors'], $data);
 	$j = json_encode($j);
 
 	//update file
@@ -93,7 +93,7 @@ function newStorage($data) {
 	$j = json_decode($c, TRUE);
 	$data = json_decode($data);
 	
-	array_push($j['storage'], $data);
+	array_push($j['storages'], $data);
 	$j = json_encode($j);
 
 	//update file

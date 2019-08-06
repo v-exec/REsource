@@ -1,6 +1,7 @@
-function Storage(name, amount, icon, color) {
+function Storage(name, amount, storageCurrency, icon, color) {
 	this.name = name;
 	this.amount = amount;
+	this.currency = storageCurrency;
 	this.icon = icon;
 	this.color = color;
 
@@ -31,7 +32,8 @@ function Storage(name, amount, icon, color) {
 		var obj = new Object();
 
 		obj.name = this.name;
-		obj.amount = this.amount;
+		obj.amount = Number(this.amount);
+		obj.currency = this.currency;
 		obj.icon = this.icon;
 		obj.color = this.color;
 		

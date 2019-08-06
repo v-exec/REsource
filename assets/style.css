@@ -342,10 +342,6 @@ a:focus {
 	margin: 0;
 	padding: 20px 20px 10px 20px;
 	list-style-type: none;
-	columns: 2;
-	-webkit-columns: 2;
-	-moz-columns: 2;
-	column-gap: 10px;
 }
 
 .itemsListItem {
@@ -484,7 +480,8 @@ a:focus {
 	width: calc(50% - (20px + 30px + 20px) - (10px));
 }
 
-#createLogCurrency {
+#createLogCurrency,
+#createStorageCurrency {
 	width: 30px;
 	text-align: center;
 }
@@ -571,27 +568,28 @@ a:focus {
 	width: 40px;
 	height: 40px;
 	right: 25%;
+	transform: translateY(10%);
 	background-color: #ccc;
 	border-radius: 100px;
 }
 
 .iconPicker {
 	position: absolute;
-	width: 40px;
-	height: 40px;
+	width: 48px;
+	height: 48px;
 	right: 20px;
 }
 
 .iconPickerIcon {
-	font-size: 42px;
+	font-size: 48px;
 }
 
 #createStorageColor {
-	transform: translateY(-50%);
+	transform: translateY(-60%);
 }
 
 #createStorageIcon {
-	transform: translateY(-50%);
+	transform: translateY(-59%);
 }
 
 .createFormButton {
@@ -599,7 +597,7 @@ a:focus {
 	position: relative;
 	width: 25%;
 	height: 45px;
-	border: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
 }
 
 #logDelete,
@@ -619,6 +617,10 @@ a:focus {
 #createStorageName,
 #createStorageAmount {
 	width: 50%;
+}
+
+#createStorageAmount {
+	width: calc(50% - (30px + 20px));
 }
 
 .createFormFeedback {

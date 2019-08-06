@@ -1,6 +1,6 @@
-function Log(amount, currency, type, source, destination, fee, date, sector, id = null) {
+function Log(amount, logCurrency, type, source, destination, fee, date, sector, id = null) {
 	this.amount = amount;
-	this.currency = currency;
+	this.currency = logCurrency;
 	this.type = type; //acquisition, spending, movement
 	this.source = source;
 	this.destination = destination;
@@ -29,7 +29,7 @@ function Log(amount, currency, type, source, destination, fee, date, sector, id 
 			break;
 	}
 
-	updateMonthlyStats();
+	updateStats();
 
 	this.createElement = function() {
 		var container = document.createElement('DIV');

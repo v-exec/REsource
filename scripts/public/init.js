@@ -79,6 +79,7 @@ var storageCreateButton = document.getElementById('createStorage');
 
 var storageCreateName = document.getElementById('createStorageName');
 var storageCreateAmount = document.getElementById('createStorageAmount');
+var storageCreateCurrency = document.getElementById('createStorageCurrency');
 var storageCreateColor = document.getElementById('createStorageColor');
 var storageCreateIcon = document.getElementById('createStorageIcon');
 var storageCreateIconIcon = document.getElementById('createStorageIconIcon');

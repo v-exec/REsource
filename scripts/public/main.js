@@ -70,7 +70,7 @@ function populateContent() {
 		}
 
 		for (var i = 0; i < jsonStorages.length; i++) {
-			storages.push(new Storage(jsonStorages[i].name, jsonStorages[i].amount, jsonStorages[i].icon, jsonStorages[i].color));
+			storages.push(new Storage(jsonStorages[i].name, jsonStorages[i].amount, jsonStorages[i].currency, jsonStorages[i].icon, jsonStorages[i].color));
 			refreshStorageList();
 		}
 
@@ -80,7 +80,7 @@ function populateContent() {
 		}
 
 		//create options in dropdown lists
-		createOptions();
+		refreshOptions();
 
 		//create colors and icons in pickers
 		createColors();
@@ -89,12 +89,17 @@ function populateContent() {
 		//set currency placeholder in settings
 		currencySetting.placeholder = currency;
 
-		//update monthly stats
-		updateMonthlyStats();
+		//update stats
+		updateStats();
 	});
 }
 
-function createOptions() {
+function refreshOptions() {
+	//reset
+	logCreateStorageSource.innerText = null;
+	logCreateStorageDestination.innerText = null;
+	logCreateSector.innerText = null;
+
 	//storages
 	for (var i = 0; i < storages.length; i++) {
 		var option = document.createElement('OPTION');
@@ -119,8 +124,8 @@ function createOptions() {
 	}
 }
 
-//todo: limit to month
-function updateMonthlyStats() {
+//todo: limit to month, take into account currency
+function updateStats() {
 	var total = 0;
 
 	for (var i = 0; i < storages.length; i++) {
@@ -217,6 +222,20 @@ function refreshLogForm() {
 	logCreateSource.value = null;
 	logCreateFee.value = null;
 	logCreateDestination.value = null;
+}
+
+function refreshSectorForm() {
+	sectorCreateName.value = null;
+	sectorCreateColor.style.backgroundColor = '#ccc';
+	sectorCreateIconIcon.innerText = 'trip_origin';
+}
+
+function refreshStorageForm() {
+	storageCreateName.value = null;
+	storageCreateAmount.value = null;
+	storageCreateCurrency.value = null;
+	storageCreateColor.style.backgroundColor = '#ccc';
+	storageCreateIconIcon.innerText = 'trip_origin';
 }
 
 function createColors() {
@@ -414,26 +433,26 @@ function switchLogCreateSelection(activate) {
 	}
 }
 
-//todo: save as cookie, make monthly stats reflect currency conversion
+//todo: save as cookie, make stats reflect currency conversion
 function changeCurrency() {
 	if (currencySetting.value != '' || currencySetting != null) {
 		switch (currencySetting.value) {
 			case '$':
 				currency = '$';
 				currencySetting.placeholder = currency;
-				updateMonthlyStats();
+				updateStats();
 				break;
 
 			case '¥':
 				currency = '¥';
 				currencySetting.placeholder = currency;
-				updateMonthlyStats();
+				updateStats();
 				break;
 
 			case '€':
 				currency = '€';
 				currencySetting.placeholder = currency;
-				updateMonthlyStats();
+				updateStats();
 				break;
 		}
 	}
@@ -526,10 +545,10 @@ function createLog() {
 	//verify data presence
 	var dataConfirm = false;
 
-	if (logCreateAmount.value != '' ||
-		logCreateCurrency.value != '' ||
-		logCreateYear.value != '' ||
-		logCreateMonth.value != '' ||
+	if (logCreateAmount.value != '' &&
+		logCreateCurrency.value != '' &&
+		logCreateYear.value != '' &&
+		logCreateMonth.value != '' &&
 		logCreateDay.value != '') {
 
 		var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
@@ -540,9 +559,7 @@ function createLog() {
 				if (logCreateSource.value != '') {
 					dataConfirm = true;
 					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, logCreateSector.value);
-					logs.push(tempLog);
 					request('newLog', null, tempLog.createJSON());
-					refreshLogList();
 				}
 				break;
 
@@ -550,18 +567,14 @@ function createLog() {
 				if (logCreateDestination.value != '') {
 					dataConfirm = true;
 					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, logCreateSector.value);
-					logs.push(tempLog);
 					request('newLog', null, tempLog.createJSON());
-					refreshLogList();
 				}
 				break;
 
 			case 'Movement':
 				dataConfirm = true;
 				tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, logCreateSector.value);
-				logs.push(tempLog);
 				request('newLog', null, tempLog.createJSON());
-				refreshLogList();
 				break;
 		}
 	}
@@ -570,7 +583,10 @@ function createLog() {
 		logCreateFeedback.innerText = 'Missing information.';
 		return;
 	} else {
+		logs.push(tempLog);
+		refreshLogList();
 		refreshLogForm();
+		updateStats();
 		toggleMenu('log');
 	}
 }
@@ -580,7 +596,18 @@ function deleteLog() {
 }
 
 function createSector() {
-
+	if (sectorCreateName.value != '') {
+		var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
+		sectors.push(tempSector);
+		request('newSector', null, tempSector.createJSON());
+		refreshSectorList();
+		refreshSectorForm();
+		refreshOptions();
+		toggleMenu('sector');
+	} else {
+		sectorCreateFeedback.innerText = 'Missing information.';
+		return;
+	}
 }
 
 function deleteSector() {
@@ -588,7 +615,31 @@ function deleteSector() {
 }
 
 function createStorage() {
+	if (isNaN(storageCreateAmount.value)) {
+		storageCreateFeedback.innerText = '"Amount" is not a number.';
+		return;
+	}
 
+	if (!isNaN(storageCreateCurrency.value)) {
+		storageCreateFeedback.innerText = '"Currency" is not a valid value.';
+		return;
+	}
+
+	if (storageCreateName.value != '' &&
+		storageCreateAmount.value != '' &&
+		storageCreateCurrency.value != '') {
+		var tempStorage = new Storage(storageCreateName.value, storageCreateAmount.value, storageCreateCurrency.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
+		storages.push(tempStorage);
+		request('newStorage', null, tempStorage.createJSON());
+		refreshStorageList();
+		refreshStorageForm();
+		refreshOptions();
+		updateStats();
+		toggleMenu('storage');
+	} else {
+		storageCreateFeedback.innerText = 'Missing information.';
+		return;
+	}
 }
 
 function deleteStorage() {

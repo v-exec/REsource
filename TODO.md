@@ -1,6 +1,3 @@
-- polish creation UI
-- finish creation infrastructure
-- update server with user data
 - add data editing
 - add data deletion
 - global currency dynamic calculation

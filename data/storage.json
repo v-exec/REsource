@@ -1,16 +1,3 @@
 {
-	"storages": [
-		{
-			"name": "Wallet",
-			"amount": 50000,
-			"icon": "account_balance_wallet",
-			"color": "green"
-		},
-		{
-			"name": "JP Bank",
-			"amount": 4500,
-			"icon": "account_balance",
-			"color": "pink"
-		}
-	]
+	"storages": []
 }

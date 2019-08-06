@@ -102,7 +102,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 					<div class="createDivider"></div>
 
-					<input class="createFieldSmall" id="createStorageAmount" maxlength="20" placeholder="amount" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
+					<input class="createField" id="createStorageAmount" maxlength="20" placeholder="amount" autocomplete="off" type="text" onclick="handleFormClick(event)"></input><input class="createFieldSmall" id="createStorageCurrency" maxlength="1" placeholder="cur" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
 					<a href="#" class="colorPicker" id="createStorageColor" onclick="openColorPicker()"></a>
 					<a href="#" class="iconPicker" id="createStorageIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createStorageIconIcon">trip_origin</i></a>
 
