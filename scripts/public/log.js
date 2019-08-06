@@ -1,5 +1,5 @@
 function Log(amount, logCurrency, type, source, destination, fee, date, sector, id = null) {
-	this.amount = amount;
+	this.amount = parseFloat(amount);
 	this.currency = logCurrency;
 	this.type = type; //acquisition, spending, movement
 	this.source = source;
@@ -7,29 +7,9 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 	this.fee = fee;
 	this.date = date;
 	this.sector = sector;
-
-	this.id = logs.length;
+	this.id;
+	if (id = null) this.id = logs.length;
 	this.element;
-
-	//move money to appropriate storage todo: take into account currency conversions, make functional
-	switch (this.type) {
-		case 'Acquisition':
-			if (findStorage(this.source)) findStorage(this.source).amount += this.amount;
-			break;
-
-		case 'Spending':
-			if (findStorage(this.destination)) findStorage(this.destination).amount -= this.amount;
-			break;
-
-		case 'Movement':
-			if (findStorage(this.destination) && findStorage(this.source)) {
-				findStorage(this.source).amount -= this.amount;
-				findStorage(this.destination).amount += (this.amount - this.fee);
-			}
-			break;
-	}
-
-	updateStats();
 
 	this.createElement = function() {
 		var container = document.createElement('DIV');
@@ -56,10 +36,11 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 
 		//always display amount with 0 decimals, unless exceeding thousands,
 		//then add "k" for thousand and single decimal
-		if (this.amount.toFixed().length < 2) {
-			amount.innerText = mod + this.amount.toFixed(1) + this.currency;
-		} else if (this.amount.toString().length <= 5) {
-			amount.innerText = mod + this.amount.toFixed() + this.currency;
+		var a = parseFloat(this.amount);
+		if (a.toFixed().length < 2) {
+			amount.innerText = mod + a.toFixed(2) + this.currency;
+		} else if (a.toString().length <= 5) {
+			amount.innerText = mod + a.toFixed() + this.currency;
 		} else {
 			var treatedAmount = this.amount / 1000;
 			treatedAmount = treatedAmount.toFixed(1) + 'k';

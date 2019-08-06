@@ -34,7 +34,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 		<div id="main">
 			<div class="page" id="trk">
 				<!-- tracking graphics -->
-				<span>test</span>
+				<span>work in progress</span>
 			</div>
 
 			<div class="page" id="log">
@@ -139,6 +139,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 		<script src="scripts/public/storage.js"></script>
 		<script src="scripts/public/log.js"></script>
 
+		<script src="scripts/public/control.js"></script>
 		<script src="scripts/public/main.js"></script>
 	</body>
 </html>
