@@ -334,3 +334,17 @@ var iconList = [
 'public',
 'whatshot'
 ];
+
+//helpers
+
+function forceDigitsOnInteger(number, digits) {
+	var length = number.toString().length;
+
+	if (length < digits) {
+		var treatedNumber = number.toString();
+		for (var i = length; i < digits; i++) {
+			treatedNumber = '0' + treatedNumber;
+		}
+		return treatedNumber;
+	} else return number;
+}

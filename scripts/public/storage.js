@@ -5,10 +5,13 @@ function Storage(name, icon, color) {
 
 	this.element;
 
-	this.createElement = function() {
+	this.createElement = function(self) {
 		var container = document.createElement('A');
-		container.className = 'itemsListItem';
 		container.href = "#";
+		container.className = 'itemsListItem';
+		container.addEventListener('click', function() {
+			fillStorageForm(self);
+		});
 
 		var icon = document.createElement('I');
 		icon.className = 'itemsListItemIcon material-icons';
@@ -24,7 +27,7 @@ function Storage(name, icon, color) {
 		this.element = container;
 	}
 
-	this.createElement();
+	this.createElement(this);
 
 	this.createJSON = function() {
 		var obj = new Object();

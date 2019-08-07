@@ -213,6 +213,11 @@ function createLog() {
 		return;
 	}
 
+	if (logCreateYear.value.toString().length < 4) {
+		logCreateFeedback.innerText = '"Year" is not a valid value.';
+		return;
+	}
+
 	if (logCreateYear.value.toString().indexOf('.') != -1 ||
 		logCreateMonth.value.toString().indexOf('.') != -1 ||
 		logCreateDay.value.toString().indexOf('.') != -1 ||
@@ -434,6 +439,49 @@ function refreshStorageList() {
 	//append sorted storages
 	for (var i = 0; i < storages.length; i++) {
 		storageList.appendChild(storages[i].element);
+	}
+}
+
+function fillLogForm(log) {
+	selectedLog = log;
+
+	logCreateAmount.value = log.amount;
+	logCreateCurrency.value = log.currency;
+
+	var date = new Date(log.date);
+
+	logCreateYear.value = date.getYear() + 1900;
+	logCreateMonth.value = forceDigitsOnInteger(date.getMonth() + 1, 2);
+	logCreateDay.value = forceDigitsOnInteger(date.getDate(), 2);
+
+	logCreateSource.value = log.source;
+	logCreateFee.value = log.fee;
+	logCreateDestination.value = log.destination;
+
+	if (openMenu != 'log') {
+		toggleMenu('log');
+	}
+}
+
+function fillSectorForm(sector) {
+	selectedSector = sector;
+
+	sectorCreateName.value = sector.name;
+	sectorCreateColor.style.backgroundColor = sector.color;
+	sectorCreateIconIcon.innerText = sector.icon;
+
+	if (openMenu != 'sector') {
+		toggleMenu('sector');
+	}
+}
+
+function fillStorageForm(storage) {
+	storageCreateName.value = storage.name;
+	storageCreateColor.style.backgroundColor = storage.color;
+	storageCreateIconIcon.innerText = storage.icon;
+
+	if (openMenu != 'storage') {
+		toggleMenu('storage');
 	}
 }
 

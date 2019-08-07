@@ -5,15 +5,27 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 	this.source = source;
 	this.destination = destination;
 	this.fee = fee;
-	this.date = date;
+
+	var dt = new Date(date);
+	var y = dt.getYear() + 1900;
+	var m = forceDigitsOnInteger(dt.getMonth() + 1, 2);
+	var d = forceDigitsOnInteger(dt.getDate(), 2);
+	this.date = y + '.' + m + '.' + d;
+
 	this.sector = sector;
+
 	this.id;
 	if (id = null) this.id = logs.length;
+
 	this.element;
 
-	this.createElement = function() {
-		var container = document.createElement('DIV');
+	this.createElement = function(self) {
+		var container = document.createElement('A');
+		container.href = '#';
 		container.className = 'log';
+		container.addEventListener('click', function() {
+			fillLogForm(self);
+		});
 
 		//amount, currency, type
 		var amount = document.createElement('SPAN');
@@ -144,7 +156,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		this.element = container;
 	}
 
-	this.createElement();
+	this.createElement(this);
 
 	this.createJSON = function() {
 		var obj = new Object();
