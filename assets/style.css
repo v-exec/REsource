@@ -300,7 +300,8 @@ a:focus {
 }
 
 .logTransaction,
-.logDate {
+.logDate,
+.logTime {
 	display: inline-block;
 	position: absolute;
 	left: calc(35% + 15px);
@@ -311,8 +312,13 @@ a:focus {
 	color: #ccc;
 }
 
-.logDate {
+.logDate,
+.logTime {
 	top: calc(50% + 9px);
+}
+
+.logTime {
+	left: calc(35% + 15px + 68px + 10px);
 }
 
 .logSectorIcon {
@@ -496,8 +502,15 @@ a:focus {
 	text-align: center;
 }
 
+#createLogTime {
+	float: right;
+	clear: right;
+}
+
 #createLogMonth,
-#createLogDay {
+#createLogDay,
+#createLogHour,
+#createLogMinute {
 	width: 30px;
 	text-align: center;
 }
@@ -692,12 +705,6 @@ a:focus {
 /* Queries */
 
 @media (max-width: 400px) {
-	.setPage {
-	columns: 1;
-	-webkit-columns: 1;
-	-moz-columns: 1;
-	}
-
 	.logAmount {
 		width: 32%;
 		font-size: 20px;
@@ -706,5 +713,9 @@ a:focus {
 	.logTransaction,
 	.logDate {
 		left: calc(32% + 15px);
+	}
+
+	.logTime {
+		left: calc(32% + 15px + 68px + 10px);
 	}
 }

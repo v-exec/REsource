@@ -1,4 +1,4 @@
-function Log(amount, logCurrency, type, source, destination, fee, date, sector, id = null) {
+function Log(amount, logCurrency, type, source, destination, fee, date, time, sector, id = null) {
 	this.amount = parseFloat(amount);
 	this.currency = logCurrency;
 	this.type = type; //acquisition, spending, movement
@@ -12,8 +12,14 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 	var d = forceDigitsOnInteger(dt.getDate(), 2);
 	this.date = y + '.' + m + '.' + d;
 
+	var h = forceDigitsOnInteger(time.split(':')[0], 2);
+	var min = forceDigitsOnInteger(time.split(':')[1], 2);
+	this.time = h + ':' + min;
+
 	this.sector = sector;
 
+	//if log is created by user, it's always created after all other logs have loaded,
+	//ensuring that generated id will be +1 above all existing logs
 	this.id;
 	if (id = null) this.id = logs.length;
 
@@ -137,6 +143,11 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		date.innerText = this.date
 		container.appendChild(date);
 
+		var time = document.createElement('SPAN');
+		time.className = 'logTime';
+		time.innerText = this.time;
+		container.appendChild(time);
+
 		//sector icon
 		if (findSector(this.sector)) {
 			var s = findSector(this.sector);
@@ -172,6 +183,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		obj.destination = this.destination;
 		obj.fee = Number(this.fee);
 		obj.date = this.date;
+		obj.time = this.time;
 		obj.sector = this.sector;
 		obj.id = Number(this.id);
 

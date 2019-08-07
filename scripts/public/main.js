@@ -66,7 +66,7 @@ function successfulLogin() {
 		}
 
 		for (var i = 0; i < jsonLogs.length; i++) {
-			logs.push(new Log(jsonLogs[i].amount, jsonLogs[i].currency, jsonLogs[i].type, jsonLogs[i].source, jsonLogs[i].destination, jsonLogs[i].fee, jsonLogs[i].date, jsonLogs[i].sector));
+			logs.push(new Log(jsonLogs[i].amount, jsonLogs[i].currency, jsonLogs[i].type, jsonLogs[i].source, jsonLogs[i].destination, jsonLogs[i].fee, jsonLogs[i].date, jsonLogs[i].time, jsonLogs[i].sector));
 			refreshLogList();
 		}
 

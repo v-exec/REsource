@@ -240,53 +240,97 @@ function createLog() {
 		return;
 	}
 
-	//verify data presence
-	var dataConfirm = false;
-
-	if (logCreateAmount.value != '' &&
-		logCreateCurrency.value != '' &&
-		logCreateYear.value != '' &&
-		logCreateMonth.value != '' &&
-		logCreateDay.value != '') {
-
-		var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
-		var tempLog;
-
-		switch (logFormSelectionType) {
-			case 'Acquisition':
-				if (logCreateSource.value != '') {
-					dataConfirm = true;
-					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, logCreateSector.value);
-					request('newLog', null, tempLog.createJSON());
-				}
-				break;
-
-			case 'Spending':
-				if (logCreateDestination.value != '') {
-					dataConfirm = true;
-					tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, logCreateSector.value);
-					request('newLog', null, tempLog.createJSON());
-				}
-				break;
-
-			case 'Movement':
-				dataConfirm = true;
-				tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, logCreateSector.value);
-				request('newLog', null, tempLog.createJSON());
-				break;
-		}
-	}
-
-	if (!dataConfirm) {
-		logCreateFeedback.innerText = 'Missing information.';
+	if (isNaN(logCreateHour.value)) {
+		logCreateFeedback.innerText = '"Hour" is not a number.';
 		return;
-	} else {
-		logs.push(tempLog);
-		refreshLogList();
-		refreshLogForm();
-		updateStats();
-		toggleMenu('log');
 	}
+
+	if (isNaN(logCreateMinute.value)) {
+		logCreateFeedback.innerText = '"Minute" is not a number.';
+		return;
+	}
+
+	if (logCreateHour.value > 23) {
+		logCreateFeedback.innerText = '"Hour" is not a valid number.';
+		return;
+	}
+
+	if (logCreateMinute.value > 60) {
+		logCreateFeedback.innerText = '"Minute" is not a valid number.';
+		return;
+	}
+
+	//verify data presence
+	if (logCreateAmount.value == '') {
+		logCreateFeedback.innerText = 'Missing "amount".';
+		return;
+	}
+
+	if (logCreateCurrency.value == '') {
+		logCreateFeedback.innerText = 'Missing "currency".';
+		return;
+	}
+
+	if (logCreateYear.value == '') {
+		logCreateFeedback.innerText = 'Missing "year".';
+		return;
+	}
+
+	if (logCreateMonth.value == '') {
+		logCreateFeedback.innerText = 'Missing "month".';
+		return;
+	}
+
+	if (logCreateDay.value == '') {
+		logCreateFeedback.innerText = 'Missing "day".';
+		return;
+	}
+
+	if (logCreateHour.value == '') {
+		logCreateFeedback.innerText = 'Missing "hour".';
+		return;
+	}
+
+	if (logCreateMinute.value == '') {
+		logCreateFeedback.innerText = 'Missing "minute".';
+		return;
+	}
+
+	//create log
+	var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
+	var time = logCreateHour.value + ':' + logCreateMinute.value;
+	var tempLog;
+
+	switch (logFormSelectionType) {
+		case 'Acquisition':
+			if (logCreateSource.value == '') {
+				logCreateFeedback.innerText = 'Missing "source".';
+				return;
+			}
+			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, time, logCreateSector.value);
+			request('newLog', null, tempLog.createJSON());
+			break;
+
+		case 'Spending':
+			if (logCreateDestination.value == '') {
+				logCreateFeedback.innerText = 'Missing "destinaion".';
+				return;
+			}
+			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, time, logCreateSector.value);
+			request('newLog', null, tempLog.createJSON());
+			break;
+
+		case 'Movement':
+			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, time, logCreateSector.value);
+			request('newLog', null, tempLog.createJSON());
+			break;
+	}
+
+	logs.push(tempLog);
+	refreshLogList();
+	refreshLogForm();
+	updateStats();
+	toggleMenu('log');
 }
 
 function deleteLog() {

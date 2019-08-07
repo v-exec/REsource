@@ -27,13 +27,14 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 		</div>
 		
 		<div id="bar">
-			<a href="#" class="barButton" id="trkButton"><i class="barButtonText material-icons" id="trkButtonText">show_chart</i></a><a href="#"class="barButton" id="logButton"><i class="barButtonText material-icons" id="logButtonText">notes</i></a><a href="#"class="barButton" id="setButton"><i class="barButtonText material-icons" id="setButtonText">add</i></a>
+			<a href="#" class="barButton" id="trkButton"><i class="barButtonText material-icons" id="trkButtonText">show_chart</i></a
+			><a href="#"class="barButton" id="logButton"><i class="barButtonText material-icons" id="logButtonText">notes</i></a
+			><a href="#"class="barButton" id="setButton"><i class="barButtonText material-icons" id="setButtonText">add</i></a>
 			<div id="barSelector"></div>
 		</div>
 
 		<div id="main">
 			<div class="page" id="trk">
-				<!-- tracking graphics -->
 				<span>work in progress</span>
 			</div>
 
@@ -53,10 +54,18 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 					<span class="fieldText" id="createSlash">/</span>
 					<input class="createField" id="createLogDay" maxlength="2" placeholder="dy" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
 
+					<div id="createLogTime">
+						<input class="createFieldSmall" id="createLogHour" maxlength="2" placeholder="hr" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
+						<span class="fieldText" id="createSlash">:</span>
+						<input class="createFieldSmall" id="createLogMinute" maxlength="2" placeholder="mn" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
+					</div>
+
 					<div class="createDivider"></div>
 
 					<div class="createTypeBarButtonHolder">
-						<a href="#" class="createTypeBarButton" id="createLogAcquisition"><span class="createTypeBarButtonText" id="createTypeBarButtonAcquisition">Acquisition</span></a><a href="#" class="createTypeBarButton" id="createLogSpending"><span class="createTypeBarButtonText" id="createTypeBarButtonSpending">Spending</span></a><a href="#" class="createTypeBarButton" id="createLogMovement"><span class="createTypeBarButtonText" id="createTypeBarButtonMovement">Movement</span></a>
+						<a href="#" class="createTypeBarButton" id="createLogAcquisition"><span class="createTypeBarButtonText" id="createTypeBarButtonAcquisition">Acquisition</span></a
+						><a href="#" class="createTypeBarButton" id="createLogSpending"><span class="createTypeBarButtonText" id="createTypeBarButtonSpending">Spending</span></a
+						><a href="#" class="createTypeBarButton" id="createLogMovement"><span class="createTypeBarButtonText" id="createTypeBarButtonMovement">Movement</span></a>
 						<div class="createTypeBarSelector" id="createLogTypeBar"></div>
 					</div>
 

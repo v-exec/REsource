@@ -40,6 +40,8 @@ var logCreateSector = document.getElementById('createLogSectorList');
 var logCreateYear = document.getElementById('createLogYear');
 var logCreateMonth = document.getElementById('createLogMonth');
 var logCreateDay = document.getElementById('createLogDay');
+var logCreateHour = document.getElementById('createLogHour');
+var logCreateMinute = document.getElementById('createLogMinute');
 
 var logCreateAcquisition = document.getElementById('createLogAcquisition');
 var logCreateSpending = document.getElementById('createLogSpending');
@@ -55,7 +57,6 @@ var logCreateSource = document.getElementById('createLogSource');
 var logCreateDestination = document.getElementById('createLogDestination');
 var logCreateFee = document.getElementById('createLogFee');
 
-var logCreateDelete = document.getElementById('logDelete');
 var logCreateCreate = document.getElementById('logCreate');
 var logCreateFeedback = document.getElementById('createLogFeedback');
 
@@ -68,7 +69,6 @@ var sectorCreateColor = document.getElementById('createSectorColor');
 var sectorCreateIcon = document.getElementById('createSectorIcon');
 var sectorCreateIconIcon = document.getElementById('createSectorIconIcon');
 
-var sectorCreateDelete = document.getElementById('sectorDelete');
 var sectorCreateCreate = document.getElementById('sectorCreate');
 var sectorCreateFeedback = document.getElementById('createSectorFeedback');
 
@@ -81,7 +81,6 @@ var storageCreateColor = document.getElementById('createStorageColor');
 var storageCreateIcon = document.getElementById('createStorageIcon');
 var storageCreateIconIcon = document.getElementById('createStorageIconIcon');
 
-var storageCreateDelete = document.getElementById('storageDelete');
 var storageCreateCreate = document.getElementById('storageCreate');
 var storageCreateFeedback = document.getElementById('createStorageFeedback');
 
