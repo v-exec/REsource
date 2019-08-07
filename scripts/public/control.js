@@ -370,7 +370,15 @@ function createSector() {
 }
 
 function deleteSector(sector) {
-
+	request('deleteSector', function() {
+		for (var i = 0; i < sectors.length; i++) {
+			if (sectors[i].name == sector.name) {
+				sectors.splice(i, 1);
+				refreshSectorList();
+				return;
+			}
+		}
+	}, null, sector.name);
 }
 
 function createStorage() {
@@ -389,7 +397,15 @@ function createStorage() {
 }
 
 function deleteStorage(storage) {
-
+	request('deleteStorage', function() {
+		for (var i = 0; i < storages.length; i++) {
+			if (storages[i].name == storage.name) {
+				storages.splice(i, 1);
+				refreshStorageList();
+				return;
+			}
+		}
+	}, null, storage.name);
 }
 
 function refreshOptions() {

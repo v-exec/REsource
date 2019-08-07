@@ -1,4 +1,3 @@
-- add data deletion
 - global currency dynamic calculation
 - fix 1px line on add button on mobile
 - fix scroll down on mobile

@@ -4,13 +4,21 @@ function Sector(name, icon, color) {
 	this.color = color;
 
 	this.element;
+	this.deleter;
+	this.timer;
 
 	this.createElement = function(self) {
 		var container = document.createElement('A');
 		container.href = "#";
 		container.className = 'itemsListItem';
-		container.addEventListener('click', function() {
-			self.toggleDelete();
+		container.addEventListener('focus', function() {
+			clearTimeout(self.timer);
+			self.deleter.style.display = 'inline-block';
+		});
+		container.addEventListener('focusout', function() {
+			self.timer = setTimeout(function() {
+				self.deleter.style.display = 'none';
+			}, 1000);
 		});
 
 		var icon = document.createElement('I');
@@ -24,14 +32,21 @@ function Sector(name, icon, color) {
 
 		container.appendChild(icon);
 		container.appendChild(text);
+
+		var deleteContainer = document.createElement('A');
+		deleteContainer.href = '#';
+		deleteContainer.addEventListener('click', function() {
+			deleteSector(self);
+		});
+		deleteContainer.className = 'itemsListDeleteButton';
+		deleteContainer.innerHTML = '<i class="itemsListDeleteIcon material-icons">remove_circle</i>';
+		container.appendChild(deleteContainer);
+
+		this.deleter = deleteContainer;
 		this.element = container;
 	}
 
 	this.createElement(this);
-
-	this.toggleDelete = function() {
-
-	}
 
 	this.createJSON = function() {
 		var obj = new Object();

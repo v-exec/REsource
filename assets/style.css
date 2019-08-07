@@ -400,12 +400,29 @@ a:focus {
 
 .itemsListItemIcon {
 	position: absolute;
-	left: 0;
 	top: 50%;
 	left: 15px;
 	font-size: 24px;
 	transform: translateY(-50%);
 	transition: color ease 0.6s;
+}
+
+.itemsListDeleteButton {
+	display: none;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	right: 0;
+	border-left: solid 1px #fafafa;
+}
+
+.itemsListDeleteIcon {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: #fafafa;
+	font-size: 24px;
 }
 
 #settingsList {

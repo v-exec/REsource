@@ -116,11 +116,45 @@ function deleteLog($id) {
 	return;
 }
 
-function deleteSector($id) {
+function deleteSector($name) {
+	$c = file_get_contents('../../data/sector.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+
+	//remove element
+	for ($i = 0; $i < sizeof($j['sectors']); $i++) {
+		if ($j['sectors'][$i]['name'] == $name) {
+			array_splice($j['sectors'], $i, 1);
+		}
+	}
+
+	$j = json_encode($j);
+
+	//update file
+	$f = fopen('../../data/sector.json','w');
+	fwrite($f, $j);
+	fclose($f);
 	return;
 }
 
-function deleteStorage($id) {
+function deleteStorage($name) {
+	$c = file_get_contents('../../data/storage.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+
+	//remove element
+	for ($i = 0; $i < sizeof($j['storages']); $i++) {
+		if ($j['storages'][$i]['name'] == $name) {
+			array_splice($j['storages'], $i, 1);
+		}
+	}
+
+	$j = json_encode($j);
+
+	//update file
+	$f = fopen('../../data/storage.json','w');
+	fwrite($f, $j);
+	fclose($f);
 	return;
 }
 
