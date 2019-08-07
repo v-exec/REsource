@@ -130,18 +130,21 @@ function changeCurrency() {
 			case '$':
 				currency = '$';
 				currencySetting.placeholder = currency;
+				setCookie('currency', currency, 2);
 				updateStats();
 				break;
 
 			case '¥':
 				currency = '¥';
 				currencySetting.placeholder = currency;
+				setCookie('currency', currency, 2);
 				updateStats();
 				break;
 
 			case '€':
 				currency = '€';
 				currencySetting.placeholder = currency;
+				setCookie('currency', currency, 2);
 				updateStats();
 				break;
 		}

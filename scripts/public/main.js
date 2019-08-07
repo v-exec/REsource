@@ -5,13 +5,14 @@ window.onload = function() {
 	if (getCookie('loginPassword')) {
 		password = getCookie('loginPassword');
 		request('verifyLogin', function(r) {
-				if (r === 'true') successfulLogin();
+			if (r === 'true') successfulLogin();
+			else {
+				//load login window
+				loginWindow.style.display = 'block';
+				loginWindow.style.opacity = 1;
+			}
 		});
 	}
-
-	//load login window
-	loginWindow.style.display = 'block';
-	loginWindow.style.opacity = 1;
 }
 
 //login on enter keypress
@@ -23,8 +24,8 @@ function login(e) {
 		loginFeedback.innerHTML = '';
 
 		request('verifyLogin', function(r) {
-				if (r === 'true') successfulLogin();
-				else loginFeedback.innerHTML = 'incorrect password';
+			if (r === 'true') successfulLogin();
+			else loginFeedback.innerHTML = 'incorrect password';
 		});
 	}
 }
@@ -78,6 +79,7 @@ function successfulLogin() {
 		createIcons();
 
 		//set currency placeholder in settings
+		if (getCookie('currency')) currency = getCookie('currency');
 		currencySetting.placeholder = currency;
 
 		//update stats

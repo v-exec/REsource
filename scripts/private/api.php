@@ -24,18 +24,6 @@ switch ($_POST['type']) {
 		newStorage($_POST['data']);
 		break;
 
-	case 'modifyLog':
-		modifyLog($_POST['id'], $_POST['data']);
-		break;
-
-	case 'modifySector':
-		modifySector($_POST['id'], $_POST['data']);
-		break;
-
-	case 'modifyStorage':
-		modifyStorage($_POST['id'], $_POST['data']);
-		break;
-
 	case 'deleteLog':
 		deleteLog($_POST['id']);
 		break;
@@ -100,18 +88,6 @@ function newStorage($data) {
 	$f = fopen('../../data/storage.json','w');
 	fwrite($f, $j);
 	fclose($f);
-	return;
-}
-
-function modifyLog($id, $data) {
-	return;
-}
-
-function modifySector($id, $data) {
-	return;
-}
-
-function modifyStorage($id, $data) {
 	return;
 }
 

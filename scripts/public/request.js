@@ -32,18 +32,6 @@ function request(type, callback, data = null, id = null) {
 			query = type + '&data=' + data;
 			break;
 
-		case 'modifyLog':
-			query = type + '&id=' + id + '&data=' + data;
-			break;
-
-		case 'modifySector':
-			query = type + '&id=' + id + '&data=' + data;
-			break;
-
-		case 'modifyStorage':
-			query = type + '&id=' + id + '&data=' + data;
-			break;
-
 		case 'deleteLog':
 			query = type + '&id=' + id;
 			break;
