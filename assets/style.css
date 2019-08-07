@@ -273,7 +273,9 @@ a:focus {
 	position: relative;
 	width: 100%;
 	height: 80px;
+	background-color: #fafafa;
 	border-bottom: solid 1px #ccc;
+	transition: transform ease 1s;
 }
 
 .logAmount {
@@ -330,6 +332,25 @@ a:focus {
 	position: relative;
 	font-size: 12px;
 	top: 1px;
+}
+
+.logDeleteButton {
+	z-index: 3;
+	display: none;
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 80px;
+	background-color: #ccc;
+}
+
+.logDeleteIcon {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: #fafafa;
+	font-size: 32px;
 }
 
 /* tracking */
@@ -602,12 +623,6 @@ a:focus {
 	position: relative;
 	width: 50px;
 	height: 50px;
-}
-
-#logDelete,
-#sectorDelete,
-#storageDelete {
-
 }
 
 #logCreate,

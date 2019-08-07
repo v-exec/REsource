@@ -30,7 +30,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		container.href = '#';
 		container.className = 'log';
 		container.addEventListener('click', function() {
-			self.toggleDelete();
+			self.toggleDelete(self);
 		});
 
 		//amount, currency, type
@@ -146,12 +146,12 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		//sector icon
 		if (findSector(this.sector)) {
 			var s = findSector(this.sector);
-			var sectorIcon = document.createElement('i');
+			var sectorIcon = document.createElement('I');
 			sectorIcon.className = 'logSectorIcon material-icons';
 			sectorIcon.innerText = s.icon;
 			sectorIcon.style.color = s.color;
 		} else {
-			var sectorIcon = document.createElement('i');
+			var sectorIcon = document.createElement('I');
 			sectorIcon.className = 'logSectorIcon material-icons';
 			sectorIcon.innerText = 'trip_origin';
 			sectorIcon.style.color = '#ccc';
@@ -159,13 +159,38 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 
 		container.appendChild(sectorIcon);
 
+		//delete toggle
+		var deleteContainer = document.createElement('A');
+		deleteContainer.href = '#';
+		deleteContainer.addEventListener('click', function() {
+			deleteLog(this);
+
+		});
+		deleteContainer.className = 'logDeleteButton';
+		deleteContainer.innerHTML = '<i class="logDeleteIcon material-icons">remove_circle</i>';
+		container.appendChild(deleteContainer);
+
 		this.element = container;
 	}
 
 	this.createElement(this);
 
-	this.toggleDelete = function() {
+	this.toggleDelete = function(self) {
+		//close toggle if open
+		if (self.element.style.transform == 'translateX(-80px)') {
+			self.element.style.transform = 'translateX(0)';
+			return;
+		}
 
+		//close all log delete toggles
+		for (var i = 0; i < logs.length; i++) {
+			if (logs[i].element.style.transform == 'translateX(-80px)') {
+				logs[i].toggleDelete(logs[i]);
+			}
+		}
+
+		//toggle delete
+		self.element.style.transform = 'translateX(-80px)';
 	}
 
 	this.createJSON = function() {
