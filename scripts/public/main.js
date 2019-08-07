@@ -98,6 +98,18 @@ logButton.addEventListener('click', function() {
 
 //open and close set menu
 setButton.addEventListener('click', function() {
+	if (colorOpen) {
+		closeColorPicker();
+		setButtonText.style.transform = 'translate(-50%, -50%) rotate(' + (winding += 90) +'deg)';
+		return;
+	}
+
+	if (iconOpen) {
+		closeIconPicker();
+		setButtonText.style.transform = 'translate(-50%, -50%) rotate(' + (winding += 90) +'deg)';
+		return;
+	}
+
 	setOpen = !setOpen;
 	toggleSet(setOpen);
 });

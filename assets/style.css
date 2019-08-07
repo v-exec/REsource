@@ -300,7 +300,6 @@ a:focus {
 }
 
 .logTransaction,
-.logDate,
 .logTime {
 	display: inline-block;
 	position: absolute;
@@ -312,13 +311,8 @@ a:focus {
 	color: #ccc;
 }
 
-.logDate,
 .logTime {
 	top: calc(50% + 9px);
-}
-
-.logTime {
-	left: calc(35% + 15px + 68px + 10px);
 }
 
 .logSectorIcon {
@@ -662,14 +656,14 @@ a:focus {
 	width: calc((100% - 60%) / 3);
 	padding-top: calc((100% - 60%) / 3); /* 1:1 Aspect Ratio */
 	border-radius: 100px;
-	margin-bottom: 20px;
-	margin-left: 10%;
-	margin-right: 10%;
+	margin: 30px 10% 30px 10%;
 }
 
 .iconChoice {
 	border-radius: 0;
+	margin: 0 10% 20px 10%;
 	font-size: 42px;
+	text-align: center;
 }
 
 /* footer */
@@ -711,11 +705,7 @@ a:focus {
 	}
 
 	.logTransaction,
-	.logDate {
-		left: calc(32% + 15px);
-	}
-
 	.logTime {
-		left: calc(32% + 15px + 68px + 10px);
+		left: calc(32% + 15px);
 	}
 }

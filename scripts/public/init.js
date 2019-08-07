@@ -91,8 +91,13 @@ var iconPicker = document.getElementById('icons');
 //states
 var isTracking = true;
 var setOpen = false;
+var colorOpen = false;
+var iconOpen = false;
 var openMenu = '';
 var logFormSelectionType = 'Spending';
+
+//other
+var winding = 0;
 
 //settings
 var currency = '¥';

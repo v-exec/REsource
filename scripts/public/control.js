@@ -26,12 +26,12 @@ function toggleSet(activate) {
 	if (activate) {
 		setScreen.style.transform = 'translateY(-1px)';
 		setButton.style.backgroundColor = '#ccc';
-		setButtonText.style.transform = 'translate(-50%, -50%) rotate(45deg)';
+		setButtonText.style.transform = 'translate(-50%, -50%) rotate(' + (winding = 45) +'deg)';
 		setButtonText.style.color = '#fafafa';
 	} else {
 		setScreen.style.transform = 'translateY(100%)';
 		setButton.style.backgroundColor = '#fafafa';
-		setButtonText.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+		setButtonText.style.transform = 'translate(-50%, -50%) rotate(' + (winding = 0) +'deg)';
 		setButtonText.style.color = '#ccc';
 	}
 }
@@ -149,10 +149,12 @@ function changeCurrency() {
 }
 
 function openColorPicker() {
+	colorOpen = true;
 	colorPicker.style.transform = 'translateX(-1px)';
 }
 
 function closeColorPicker() {
+	colorOpen = false;
 	colorPicker.style.transform = 'translateX(calc(100% + 1px))';
 }
 
@@ -170,10 +172,12 @@ function pickColor(swatch) {
 }
 
 function openIconPicker() {
+	iconOpen = true;
 	iconPicker.style.transform = 'translateX(-1px)';
 }
 
 function closeIconPicker() {
+	iconOpen = false;
 	iconPicker.style.transform = 'translateX(calc(100% + 1px))';
 }
 
@@ -490,6 +494,8 @@ function refreshLogForm() {
 	logCreateYear.value = null;
 	logCreateMonth.value = null;
 	logCreateDay.value = null;
+	logCreateHour.value = null;
+	logCreateMinute.value = null;
 
 	logCreateSource.value = null;
 	logCreateFee.value = null;

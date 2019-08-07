@@ -137,15 +137,10 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		transaction.innerHTML = transactionNode;
 		container.appendChild(transaction);
 
-		//date
-		var date = document.createElement('SPAN');
-		date.className = 'logDate';
-		date.innerText = this.date
-		container.appendChild(date);
-
+		//date & time
 		var time = document.createElement('SPAN');
 		time.className = 'logTime';
-		time.innerText = this.time;
+		time.innerText = this.date + ' - ' + this.time;
 		container.appendChild(time);
 
 		//sector icon
