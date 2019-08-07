@@ -433,9 +433,19 @@ function updateStats() {
 }
 
 function refreshLogList() {
-	//sort logs by date
-	logs.sort(function(a, b) { 
-		return new Date(b.date) - new Date(a.date);
+	//sort logs by time
+	logs.sort(function(a, b) {
+		var bt = new Date(b.date);
+		var by = bt.getYear() + 1900;
+		var bm = forceDigitsOnInteger(bt.getMonth() + 1, 2);
+		var bd = forceDigitsOnInteger(bt.getDate(), 2);
+
+		var at = new Date(a.date);
+		var ay = at.getYear() + 1900;
+		var am = forceDigitsOnInteger(at.getMonth() + 1, 2);
+		var ad = forceDigitsOnInteger(at.getDate(), 2);
+
+		return new Date(by + '-' + bm + '-' + bd + 'T' + b.time) - new Date(ay + '-' + am + '-' + ad + 'T' + a.time);
 	});
 
 	//clear all logs
