@@ -20,16 +20,20 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 
 	//if log is created by user, it's always created after all other logs have loaded,
 	//ensuring that generated id will be +1 above all existing logs
-	this.id;
-	if (id = null) this.id = logs.length;
+	this.id = id;
+	if (id == null) this.id = logs.length;
 
 	this.element;
+	this.elementLog;
 
 	this.createElement = function(self) {
-		var container = document.createElement('A');
-		container.href = '#';
-		container.className = 'log';
-		container.addEventListener('click', function() {
+		var container = document.createElement('DIV');
+		container.className = 'logContainer';
+
+		var log = document.createElement('A');
+		log.href = '#';
+		log.className = 'log';
+		log.addEventListener('click', function() {
 			self.toggleDelete(self);
 		});
 
@@ -65,14 +69,14 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 			amount.innerText = mod + treatedAmount + this.currency;
 		}
 		
-		container.appendChild(amount);
+		log.appendChild(amount);
 
 		//fee
 		if (this.fee != 0) {
 			var feeElement = document.createElement('SPAN');
 			feeElement.className = 'logFee';
 			feeElement.innerText = '-' + this.fee + this.currency;
-			container.appendChild(feeElement);
+			log.appendChild(feeElement);
 		}
 
 		//source, destination + icon
@@ -135,13 +139,13 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		if (isMovement) transactionNode = transactionIconGiver + ' ' + this.source + ' > ' + transactionIconReciever + ' ' + this.destination;
 
 		transaction.innerHTML = transactionNode;
-		container.appendChild(transaction);
+		log.appendChild(transaction);
 
 		//date & time
 		var time = document.createElement('SPAN');
 		time.className = 'logTime';
 		time.innerText = this.date + ' - ' + this.time;
-		container.appendChild(time);
+		log.appendChild(time);
 
 		//sector icon
 		if (findSector(this.sector)) {
@@ -157,19 +161,21 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 			sectorIcon.style.color = '#ccc';
 		}
 
-		container.appendChild(sectorIcon);
+		log.appendChild(sectorIcon);
 
-		//delete toggle
+		//delete toggle - append to container to avoid shared transform between toggle and log
 		var deleteContainer = document.createElement('A');
 		deleteContainer.href = '#';
 		deleteContainer.addEventListener('click', function() {
-			deleteLog(this);
-
+			deleteLog(self);
 		});
 		deleteContainer.className = 'logDeleteButton';
 		deleteContainer.innerHTML = '<i class="logDeleteIcon material-icons">remove_circle</i>';
 		container.appendChild(deleteContainer);
 
+		container.append(log);
+
+		this.elementLog = log;
 		this.element = container;
 	}
 
@@ -177,20 +183,16 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 
 	this.toggleDelete = function(self) {
 		//close toggle if open
-		if (self.element.style.transform == 'translateX(-80px)') {
-			self.element.style.transform = 'translateX(0)';
+		if (self.elementLog.style.transform == 'translateX(-80px)') {
+			self.elementLog.style.transform = 'translateX(0)';
 			return;
 		}
 
 		//close all log delete toggles
-		for (var i = 0; i < logs.length; i++) {
-			if (logs[i].element.style.transform == 'translateX(-80px)') {
-				logs[i].toggleDelete(logs[i]);
-			}
-		}
+		closeAllLogDeletes();
 
 		//toggle delete
-		self.element.style.transform = 'translateX(-80px)';
+		self.elementLog.style.transform = 'translateX(-80px)';
 	}
 
 	this.createJSON = function() {
@@ -216,4 +218,12 @@ function findLog(id) {
 		if (logs[i].id == id) return logs[i];
 	}
 	return false;
+}
+
+function closeAllLogDeletes() {
+	for (var i = 0; i < logs.length; i++) {
+		if (logs[i].elementLog.style.transform == 'translateX(-80px)') {
+			logs[i].toggleDelete(logs[i]);
+		}
+	}
 }

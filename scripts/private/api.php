@@ -46,7 +46,6 @@ switch ($_POST['type']) {
 }
 
 function newLog($data) {
-	//append new data
 	$c = file_get_contents('../../data/log.json');
 	$j = json_decode($c, TRUE);
 	$data = json_decode($data);
@@ -92,6 +91,28 @@ function newStorage($data) {
 }
 
 function deleteLog($id) {
+	$c = file_get_contents('../../data/log.json');
+	$j = json_decode($c, TRUE);
+	$data = json_decode($data);
+
+	//remove element
+	for ($i = 0; $i < sizeof($j['logs']); $i++) {
+		if ($j['logs'][$i]['id'] == $id) {
+			array_splice($j['logs'], $i, 1);
+		}
+	}
+
+	//fix ids
+	for ($i = 0; $i < sizeof($j['logs']); $i++) {
+		$j['logs'][$i]['id'] = $i;
+	}
+
+	$j = json_encode($j);
+
+	//update file
+	$f = fopen('../../data/log.json','w');
+	fwrite($f, $j);
+	fclose($f);
 	return;
 }
 

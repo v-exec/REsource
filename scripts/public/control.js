@@ -340,8 +340,18 @@ function createLog() {
 	toggleMenu('log');
 }
 
-function deleteLog() {
+function deleteLog(log) {
+	closeAllLogDeletes();
 
+	request('deleteLog', function() {
+		for (var i = 0; i < logs.length; i++) {
+			if (logs[i].id == log.id) {
+				logs.splice(i, 1);
+				refreshLogList();
+				return;
+			}
+		}
+	}, null, log.id);
 }
 
 function createSector() {
@@ -359,7 +369,7 @@ function createSector() {
 	}
 }
 
-function deleteSector() {
+function deleteSector(sector) {
 
 }
 
@@ -378,7 +388,7 @@ function createStorage() {
 	}
 }
 
-function deleteStorage() {
+function deleteStorage(storage) {
 
 }
 

@@ -268,13 +268,18 @@ a:focus {
 
 /* logs */
 
-.log {
-	display: block;
+.logContainer {
 	position: relative;
 	width: 100%;
 	height: 80px;
-	background-color: #fafafa;
 	border-bottom: solid 1px #ccc;
+}
+
+.log {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #fafafa;
 	transition: transform ease 1s;
 }
 
@@ -335,8 +340,8 @@ a:focus {
 }
 
 .logDeleteButton {
-	z-index: 3;
-	display: none;
+	z-index: 0;
+	display: inline-block;
 	position: absolute;
 	right: 0;
 	height: 100%;
