@@ -1,4 +1,4 @@
-- add data editing
+- add time to log
 - add data deletion
 - global currency dynamic calculation
 - fix 1px line on add button on mobile

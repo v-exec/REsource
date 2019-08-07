@@ -24,7 +24,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 		container.href = '#';
 		container.className = 'log';
 		container.addEventListener('click', function() {
-			fillLogForm(self);
+			self.toggleDelete();
 		});
 
 		//amount, currency, type
@@ -157,6 +157,10 @@ function Log(amount, logCurrency, type, source, destination, fee, date, sector, 
 	}
 
 	this.createElement(this);
+
+	this.toggleDelete = function() {
+
+	}
 
 	this.createJSON = function() {
 		var obj = new Object();

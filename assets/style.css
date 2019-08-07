@@ -522,13 +522,18 @@ a:focus {
 }
 
 .createTypeBarButtonText,
-.createFormButtonText {
+.createFormButtonIcon {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 14px;
 	transition: color ease 1s;
+}
+
+.createFormButtonIcon {
+	font-size: 48px;
+	transition: none;
 }
 
 #createTypeBarButtonSpending {
@@ -565,20 +570,20 @@ a:focus {
 }
 
 .colorPicker {
-	position: absolute;
+	display: inline-block;
+	position: relative;
 	width: 40px;
 	height: 40px;
-	right: 25%;
-	transform: translateY(10%);
+	margin-right: 20px;
 	background-color: #ccc;
 	border-radius: 100px;
+	transform: translateY(-4px);
 }
 
 .iconPicker {
-	position: absolute;
+	position: relative;
 	width: 48px;
 	height: 48px;
-	right: 5%;
 }
 
 .iconPickerIcon {
@@ -588,9 +593,8 @@ a:focus {
 .createFormButton {
 	display: inline-block;
 	position: relative;
-	width: 25%;
-	height: 45px;
-	border-bottom: solid 1px #ccc;
+	width: 50px;
+	height: 50px;
 }
 
 #logDelete,

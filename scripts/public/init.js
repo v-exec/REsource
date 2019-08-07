@@ -92,13 +92,8 @@ var iconPicker = document.getElementById('icons');
 //states
 var isTracking = true;
 var setOpen = false;
-
 var openMenu = '';
 var logFormSelectionType = 'Spending';
-
-var selectedLog = null;
-var selectedSector = null;
-var selectedStorage = null;
 
 //settings
 var currency = '¥';

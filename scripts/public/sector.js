@@ -10,7 +10,7 @@ function Sector(name, icon, color) {
 		container.href = "#";
 		container.className = 'itemsListItem';
 		container.addEventListener('click', function() {
-			fillSectorForm(self);
+			self.toggleDelete();
 		});
 
 		var icon = document.createElement('I');
@@ -28,6 +28,10 @@ function Sector(name, icon, color) {
 	}
 
 	this.createElement(this);
+
+	this.toggleDelete = function() {
+
+	}
 
 	this.createJSON = function() {
 		var obj = new Object();

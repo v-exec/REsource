@@ -124,7 +124,6 @@ function switchLogCreateSelection(activate) {
 	}
 }
 
-//todo: save as cookie, make stats reflect currency conversion
 function changeCurrency() {
 	if (currencySetting.value != '' || currencySetting != null) {
 		switch (currencySetting.value) {
@@ -362,7 +361,6 @@ function refreshOptions() {
 	}
 }
 
-//todo: limit to month, take into account currency
 function updateStats() {
 	var totalAcquisition = 0;
 	var totalSpending = 0;
@@ -386,7 +384,6 @@ function updateStats() {
 	footData.innerText = '+' + parseFloat(totalAcquisition).toFixed(2) + currency + '   ' + '-' + parseFloat(totalSpending).toFixed(2) + currency;
 }
 
-//todo: add month tags
 function refreshLogList() {
 	//sort logs by date
 	logs.sort(function(a, b) { 
@@ -439,49 +436,6 @@ function refreshStorageList() {
 	//append sorted storages
 	for (var i = 0; i < storages.length; i++) {
 		storageList.appendChild(storages[i].element);
-	}
-}
-
-function fillLogForm(log) {
-	selectedLog = log;
-
-	logCreateAmount.value = log.amount;
-	logCreateCurrency.value = log.currency;
-
-	var date = new Date(log.date);
-
-	logCreateYear.value = date.getYear() + 1900;
-	logCreateMonth.value = forceDigitsOnInteger(date.getMonth() + 1, 2);
-	logCreateDay.value = forceDigitsOnInteger(date.getDate(), 2);
-
-	logCreateSource.value = log.source;
-	logCreateFee.value = log.fee;
-	logCreateDestination.value = log.destination;
-
-	if (openMenu != 'log') {
-		toggleMenu('log');
-	}
-}
-
-function fillSectorForm(sector) {
-	selectedSector = sector;
-
-	sectorCreateName.value = sector.name;
-	sectorCreateColor.style.backgroundColor = sector.color;
-	sectorCreateIconIcon.innerText = sector.icon;
-
-	if (openMenu != 'sector') {
-		toggleMenu('sector');
-	}
-}
-
-function fillStorageForm(storage) {
-	storageCreateName.value = storage.name;
-	storageCreateColor.style.backgroundColor = storage.color;
-	storageCreateIconIcon.innerText = storage.icon;
-
-	if (openMenu != 'storage') {
-		toggleMenu('storage');
 	}
 }
 

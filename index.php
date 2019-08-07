@@ -70,8 +70,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 					<div class="createDivider"></div>
 
-					<a href="#" class="createFormButton" id="logDelete" onclick="deleteLog()"><span class="createFormButtonText">Delete</span></a>
-					<a href="#" class="createFormButton" id="logCreate" onclick="createLog()"><span class="createFormButtonText">Create</span></a>
+					<a href="#" class="createFormButton" id="logCreate" onclick="createLog()"><i class="createFormButtonIcon material-icons">add_circle</i></a>
 
 					<span class="createFormFeedback" id="createLogFeedback"></span>
 				</div>
@@ -83,14 +82,13 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 				<a href="#" class="createButton" id="createSector"><div id="createBarSector"></div><span id="createButtonTextSector">+ Sector</span></a>
 				<div class="creationForm" id="focusSector">
 					<input class="createFieldSmall" id="createSectorName" maxlength="20" placeholder="name" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
+					
+					<div class="createDivider"></div>
+
 					<a href="#" class="colorPicker" id="createSectorColor" onclick="openColorPicker()"></a>
 					<a href="#" class="iconPicker" id="createSectorIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createSectorIconIcon">trip_origin</i></a>
 
-					<div class="createDivider"></div>
-					<div class="createDivider"></div>
-
-					<a href="#" class="createFormButton" id="sectorDelete" onclick="deleteSector()"><span class="createFormButtonText">Delete</span></a>
-					<a href="#" class="createFormButton" id="sectorCreate" onclick="createSector()"><span class="createFormButtonText">Create</span></a>
+					<a href="#" class="createFormButton" id="sectorCreate" onclick="createSector()"><i class="createFormButtonIcon material-icons">add_circle</i></a>
 
 					<span class="createFormFeedback" id="createSectorFeedback"></span>
 				</div>
@@ -99,14 +97,13 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 				<a href="#" class="createButton" id="createStorage"><div id="createBarStorage"></div><span id="createButtonTextStorage">+ Storage</span></a>
 				<div class="creationForm" id="focusStorage">
 					<input class="createFieldSmall" id="createStorageName" maxlength="20" placeholder="name" autocomplete="off" type="text" onclick="handleFormClick(event)"></input>
+					
+					<div class="createDivider"></div>
+
 					<a href="#" class="colorPicker" id="createStorageColor" onclick="openColorPicker()"></a>
 					<a href="#" class="iconPicker" id="createStorageIcon" onclick="openIconPicker()"><i class="iconPickerIcon material-icons" id="createStorageIconIcon">trip_origin</i></a>
 
-					<div class="createDivider"></div>
-					<div class="createDivider"></div>
-
-					<a href="#" class="createFormButton" id="storageDelete" onclick="deleteStorage()"><span class="createFormButtonText">Delete</span></a>
-					<a href="#" class="createFormButton" id="storageCreate" onclick="createStorage()"><span class="createFormButtonText">Create</span></a>
+					<a href="#" class="createFormButton" id="storageCreate" onclick="createStorage()"><i class="createFormButtonIcon material-icons">add_circle</i></a>
 
 					<span class="createFormFeedback" id="createStorageFeedback"></span>
 				</div>
