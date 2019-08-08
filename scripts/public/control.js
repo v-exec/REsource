@@ -54,6 +54,13 @@ function toggleMenu(activate) {
 				logMenu.style.maxHeight = '500px';
 				logMenu.style.padding = '20px 0 20px 0';
 				openMenu = 'log';
+
+				//autofill data with date and currency
+				logCreateCurrency.value = currency;
+				var date = new Date();
+				logCreateYear.value = date.getYear() + 1900;
+				logCreateMonth.value = forceDigitsOnInteger(date.getMonth() + 1, 2);
+				logCreateDay.value = forceDigitsOnInteger(date.getDate(), 2);
 			}
 			break;
 
@@ -141,12 +148,26 @@ function changeCurrency() {
 				updateStats();
 				break;
 
+			case '円':
+				currency = '円';
+				currencySetting.placeholder = currency;
+				setCookie('currency', currency, 2);
+				updateStats();
+				break;
+
 			case '€':
 				currency = '€';
 				currencySetting.placeholder = currency;
 				setCookie('currency', currency, 2);
 				updateStats();
 				break;
+
+			case '£':
+				currency = '£';
+				currencySetting.placeholder = currency;
+				setCookie('currency', currency, 2);
+				updateStats();
+				break;		
 		}
 	}
 }
@@ -209,7 +230,9 @@ function createLog() {
 	if (!isNaN(logCreateCurrency.value) ||
 		(logCreateCurrency.value != '$') &&
 		logCreateCurrency.value != '¥' &&
-		logCreateCurrency.value != '€') {
+		logCreateCurrency.value != '€' &&
+		logCreateCurrency.value != '円' &&
+		logCreateCurrency.valu != '£') {
 		logCreateFeedback.innerText = '"Currency" is not a valid value.';
 		return;
 	}
