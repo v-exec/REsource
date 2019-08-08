@@ -11,6 +11,8 @@ function switchScreen(screen) {
 		logScreen.style.transform = 'translateX(100%)';
 		trkScreen.style.transform = 'translateX(0)';
 
+		//close all log deletes to keep interface clean
+		closeAllLogDeletes();
 	} else {
 		barSelector.style.transform = 'translateX(100%)';
 		trkButtonText.style.color = '#ccc';
@@ -61,6 +63,9 @@ function toggleMenu(activate) {
 				logCreateYear.value = date.getYear() + 1900;
 				logCreateMonth.value = forceDigitsOnInteger(date.getMonth() + 1, 2);
 				logCreateDay.value = forceDigitsOnInteger(date.getDate(), 2);
+
+				//close delete toggles for cleanliness
+				closeAllLogDeletes();
 			}
 			break;
 

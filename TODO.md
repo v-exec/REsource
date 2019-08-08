@@ -1,5 +1,3 @@
-- global currency dynamic calculation
-- fix 1px line on add button on mobile
-- fix scroll down on mobile
 - ensure functionality on iOS
+- global currency dynamic calculation
 - create tracking graphs

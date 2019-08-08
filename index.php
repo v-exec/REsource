@@ -135,6 +135,8 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 			<span id="footData"></span>
 			<img id="footLogo" src="assets/media/REsource logo_w.svg"></img>
 		</div>
+
+		<div id="footHider"></div>
 		
 		<div id="front" class="<?php echo $_SESSION['front'] ?>" style="display:none"></div>
 
