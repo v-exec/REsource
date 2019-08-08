@@ -35,6 +35,10 @@ function toggleSet(activate) {
 		setButton.style.backgroundColor = '#fafafa';
 		setButtonText.style.transform = 'translate(-50%, -50%) rotate(' + (winding = 0) +'deg)';
 		setButtonText.style.color = '#ccc';
+
+		//close all deletes for cleanliness
+		closeAllSectorDeletes();
+		closeAllStorageDeletes();
 	}
 }
 
@@ -78,6 +82,9 @@ function toggleMenu(activate) {
 				sectorMenu.style.maxHeight = '250px';
 				sectorMenu.style.padding = '20px 0 20px 0';
 				openMenu = 'sector';
+
+				//close for cleanliness
+				closeAllSectorDeletes();
 			}
 			break;
 
@@ -90,6 +97,9 @@ function toggleMenu(activate) {
 				storageMenu.style.maxHeight = '250px';
 				storageMenu.style.padding = '20px 0 20px 0';
 				openMenu = 'storage';
+
+				//close for cleanliness
+				closeAllStorageDeletes();
 			}
 			break;
 	}
@@ -401,6 +411,8 @@ function createSector() {
 }
 
 function deleteSector(sector) {
+	closeAllSectorDeletes();
+
 	request('deleteSector', function() {
 		for (var i = 0; i < sectors.length; i++) {
 			if (sectors[i].name == sector.name) {
@@ -433,6 +445,8 @@ function createStorage() {
 }
 
 function deleteStorage(storage) {
+	closeAllStorageDeletes();
+
 	request('deleteStorage', function() {
 		for (var i = 0; i < storages.length; i++) {
 			if (storages[i].name == storage.name) {
@@ -498,6 +512,14 @@ function updateStats() {
 }
 
 function refreshLogList() {
+	//clear all logs
+	while (logScreen.children.length > 2) {
+		logScreen.removeChild(logScreen.children[logScreen.children.length - 1]);  
+	}
+
+	//return if no logs to display
+	if (logs.length < 1) return;
+
 	//sort logs by time
 	logs.sort(function(a, b) {
 		var bt = new Date(b.date);
@@ -512,11 +534,6 @@ function refreshLogList() {
 
 		return new Date(by + '-' + bm + '-' + bd + 'T' + b.time) - new Date(ay + '-' + am + '-' + ad + 'T' + a.time);
 	});
-
-	//clear all logs
-	while (logScreen.children.length > 2) {
-		logScreen.removeChild(logScreen.children[logScreen.children.length - 1]);  
-	}
 
 	//append sorted logs along with month tags
 	var month = new Date(logs[0].date).getMonth();
@@ -538,17 +555,20 @@ function refreshLogList() {
 }
 
 function refreshSectorList() {
+	//clear all sectors
+	while (sectorList.children.length > 0) {
+		sectorList.removeChild(sectorList.children[sectorList.children.length - 1]);  
+	}
+
+	//return if no sectors to display
+	if (sectors.length < 1) return;
+
 	//sort sectors alphabetically
 	sectors.sort(function(a, b) {
 		var textA = a.name.toLowerCase();
 		var textB = b.name.toLowerCase();
 		return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
 	});
-
-	//clear all sectors
-	while (sectorList.children.length > 0) {
-		sectorList.removeChild(sectorList.children[sectorList.children.length - 1]);  
-	}
 
 	//append sorted sectors
 	for (var i = 0; i < sectors.length; i++) {
@@ -557,17 +577,20 @@ function refreshSectorList() {
 }
 
 function refreshStorageList() {
+	//clear all storages
+	while (storageList.children.length > 0) {
+		storageList.removeChild(storageList.children[storageList.children.length - 1]); 
+	} 
+	
+	//return if no storages to display
+	if (storages.length < 1) return;
+
 	//sort storages alphabetically
 	storages.sort(function(a, b) {
 		var textA = a.name.toLowerCase();
 		var textB = b.name.toLowerCase();
 		return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
 	});
-
-	//clear all storages
-	while (storageList.children.length > 0) {
-		storageList.removeChild(storageList.children[storageList.children.length - 1]);  
-	}
 
 	//append sorted storages
 	for (var i = 0; i < storages.length; i++) {

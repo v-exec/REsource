@@ -403,14 +403,6 @@ a:focus {
 	transition: background-color ease 1s;
 }
 
-.itemsListItem:focus {
-	background-color: #ccc;
-}
-
-.itemsListItem:focus * {
-	color: #fafafa !important;
-}
-
 .itemsListItemText {
 	display: inline-block;
 	width: 100%;

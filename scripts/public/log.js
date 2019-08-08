@@ -29,6 +29,8 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 	this.element;
 	this.elementLog;
 
+	this.deleteToggled = false;
+
 	this.createElement = function(self) {
 		var container = document.createElement('DIV');
 		container.className = 'logContainer';
@@ -187,13 +189,16 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 
 	this.toggleDelete = function(self) {
 		//close toggle if open
-		if (self.elementLog.style.transform == 'translateX(-80px)') {
+		if (self.deleteToggled) {
+			self.deleteToggled = false;
 			self.elementLog.style.transform = 'translateX(0)';
 			return;
 		}
 
 		//close all log delete toggles
 		closeAllLogDeletes();
+
+		self.deleteToggled = true;
 
 		//toggle delete
 		self.elementLog.style.transform = 'translateX(-80px)';
@@ -226,7 +231,7 @@ function findLog(id) {
 
 function closeAllLogDeletes() {
 	for (var i = 0; i < logs.length; i++) {
-		if (logs[i].elementLog.style.transform == 'translateX(-80px)') {
+		if (logs[i].deleteToggled) {
 			logs[i].toggleDelete(logs[i]);
 		}
 	}
