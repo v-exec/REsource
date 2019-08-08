@@ -270,24 +270,31 @@ function createLog() {
 		return;
 	}
 
-	if (isNaN(logCreateHour.value)) {
-		logCreateFeedback.innerText = '"Hour" is not a number.';
-		return;
-	}
+	//optional time
+	var timePresent = false;
 
-	if (isNaN(logCreateMinute.value)) {
-		logCreateFeedback.innerText = '"Minute" is not a number.';
-		return;
-	}
+	if (logCreateHour.value || logCreateMinute.value) {
+		timePresent = true;
 
-	if (logCreateHour.value > 23) {
-		logCreateFeedback.innerText = '"Hour" is not a valid number.';
-		return;
-	}
+		if (isNaN(logCreateHour.value)) {
+			logCreateFeedback.innerText = '"Hour" is not a number.';
+			return;
+		}
 
-	if (logCreateMinute.value > 60) {
-		logCreateFeedback.innerText = '"Minute" is not a valid number.';
-		return;
+		if (isNaN(logCreateMinute.value)) {
+			logCreateFeedback.innerText = '"Minute" is not a number.';
+			return;
+		}
+
+		if (logCreateHour.value > 23) {
+			logCreateFeedback.innerText = '"Hour" is not a valid number.';
+			return;
+		}
+
+		if (logCreateMinute.value > 60) {
+			logCreateFeedback.innerText = '"Minute" is not a valid number.';
+			return;
+		}
 	}
 
 	//verify data presence
@@ -316,19 +323,10 @@ function createLog() {
 		return;
 	}
 
-	if (logCreateHour.value == '') {
-		logCreateFeedback.innerText = 'Missing "hour".';
-		return;
-	}
-
-	if (logCreateMinute.value == '') {
-		logCreateFeedback.innerText = 'Missing "minute".';
-		return;
-	}
-
 	//create log
 	var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
-	var time = logCreateHour.value + ':' + logCreateMinute.value;
+	var time = null;
+	if (timePresent) time = logCreateHour.value + ':' + logCreateMinute.value;
 	var tempLog;
 
 	switch (logFormSelectionType) {
@@ -468,15 +466,15 @@ function updateStats() {
 	for (var i = 0; i < logs.length; i++) {
 		switch (logs[i].type) {
 			case 'Acquisition':
-				totalAcquisition += logs[i].amount;
+				totalAcquisition += parseFloat(logs[i].amount);
 				break;
 
 			case 'Spending':
-				totalSpending += logs[i].amount;
+				totalSpending += parseFloat(logs[i].amount);
 				break;
 
 			case 'Movement':
-				totalSpending += logs[i].fee;
+				totalSpending += parseFloat(logs[i].fee);
 				break;
 		}
 	}
@@ -505,8 +503,21 @@ function refreshLogList() {
 		logScreen.removeChild(logScreen.children[logScreen.children.length - 1]);  
 	}
 
-	//append sorted logs
+	//append sorted logs along with month tags
+	var month = new Date(logs[0].date).getMonth();
+
 	for (var i = 0; i < logs.length; i++) {
+
+		if (new Date(logs[i].date).getMonth() != month) {
+			month = new Date(logs[i].date).getMonth();
+
+			var dateTag = document.createElement('DIV');
+			dateTag.className = 'dateTag';
+			dateTag.innerHTML = '<span class="dateTagText">' + (new Date(logs[i].date).getYear() + 1900) + ', ' + new Date(logs[i].date).toLocaleString('default', { month: 'long' }) + '</span>';
+
+			logScreen.appendChild(dateTag);
+		}
+		
 		logScreen.appendChild(logs[i].element);
 	}
 }

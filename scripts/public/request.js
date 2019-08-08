@@ -8,7 +8,6 @@ function request(type, callback, data = null, id = null) {
 	xhr.onload = function() {
 		if (xhr.status === 200) {
 			//handle response
-			console.log(xhr.responseText);
 			if (callback) callback(xhr.responseText);
 		}
 		else {

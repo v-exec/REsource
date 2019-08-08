@@ -6,15 +6,18 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 	this.destination = destination;
 	this.fee = fee;
 
-	var dt = new Date(date);
+	this.date = date;
+	var dt = new Date(this.date);
 	var y = dt.getYear() + 1900;
 	var m = forceDigitsOnInteger(dt.getMonth() + 1, 2);
 	var d = forceDigitsOnInteger(dt.getDate(), 2);
-	this.date = y + '.' + m + '.' + d;
+	this.processedDate = y + '.' + m + '.' + d;
 
-	var h = forceDigitsOnInteger(time.split(':')[0], 2);
-	var min = forceDigitsOnInteger(time.split(':')[1], 2);
-	this.time = h + ':' + min;
+	if (time) {
+		var h = forceDigitsOnInteger(time.split(':')[0], 2);
+		var min = forceDigitsOnInteger(time.split(':')[1], 2);
+		this.time = h + ':' + min;
+	} else this.time = null;	
 
 	this.sector = sector;
 
@@ -144,7 +147,8 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		//date & time
 		var time = document.createElement('SPAN');
 		time.className = 'logTime';
-		time.innerText = this.date + ' - ' + this.time;
+		if (this.time) time.innerText = this.processedDate + ' - ' + this.time;
+		else time.innerText = this.processedDate;
 		log.appendChild(time);
 
 		//sector icon
