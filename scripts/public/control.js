@@ -329,7 +329,7 @@ function createLog() {
 	}
 
 	//create log
-	var date = logCreateYear.value + '.' + logCreateMonth.value + '.' + logCreateDay.value;
+	var date = logCreateYear.value + '-' + logCreateMonth.value + '-' + logCreateDay.value;
 	var time = null;
 	if (timePresent) time = logCreateHour.value + ':' + logCreateMinute.value;
 	var tempLog;
@@ -381,18 +381,23 @@ function deleteLog(log) {
 }
 
 function createSector() {
-	if (sectorCreateName.value != '') {
-		var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
-		sectors.push(tempSector);
-		request('newSector', null, tempSector.createJSON());
-		refreshSectorList();
-		refreshSectorForm();
-		refreshOptions();
-		toggleMenu('sector');
-	} else {
-		sectorCreateFeedback.innerText = 'Missing information.';
+	if (sectorCreateName.value == '') {
+		sectorCreateFeedback.innerText = 'Missing "name".';
 		return;
 	}
+
+	if (findSector(sectorCreateName.value)) {
+		sectorCreateFeedback.innerText = 'Storage with this name already exists.';
+		return;
+	}
+
+	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
+	sectors.push(tempSector);
+	request('newSector', null, tempSector.createJSON());
+	refreshSectorList();
+	refreshSectorForm();
+	refreshOptions();
+	toggleMenu('sector');
 }
 
 function deleteSector(sector) {
@@ -408,18 +413,23 @@ function deleteSector(sector) {
 }
 
 function createStorage() {
-	if (storageCreateName.value != '') {
-		var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
-		storages.push(tempStorage);
-		request('newStorage', null, tempStorage.createJSON());
-		refreshStorageList();
-		refreshStorageForm();
-		refreshOptions();
-		toggleMenu('storage');
-	} else {
-		storageCreateFeedback.innerText = 'Missing information.';
+	if (storageCreateName.value == '') {
+		storageCreateFeedback.innerText = 'Missing "name".';
 		return;
 	}
+
+	if (findStorage(storageCreateName.value)) {
+		storageCreateFeedback.innerText = 'Storage with this name already exists.';
+		return;
+	}
+
+	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
+	storages.push(tempStorage);
+	request('newStorage', null, tempStorage.createJSON());
+	refreshStorageList();
+	refreshStorageForm();
+	refreshOptions();
+	toggleMenu('storage');
 }
 
 function deleteStorage(storage) {
@@ -518,7 +528,7 @@ function refreshLogList() {
 
 			var dateTag = document.createElement('DIV');
 			dateTag.className = 'dateTag';
-			dateTag.innerHTML = '<span class="dateTagText">' + (new Date(logs[i].date).getYear() + 1900) + ', ' + new Date(logs[i].date).toLocaleString('default', { month: 'long' }) + '</span>';
+			dateTag.innerHTML = '<span class="dateTagText">' + new Date(logs[i].date).toLocaleString('default', { month: 'long' }) + ', ' + (new Date(logs[i].date).getYear() + 1900) + '</span>';
 
 			logScreen.appendChild(dateTag);
 		}

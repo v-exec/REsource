@@ -1,3 +1,6 @@
-- ensure functionality on iOS
+- safari dates weird
+- make setlist items focus replace with javascript
+- deleting wrong log if datetag is in the way
+- creating new datetag for existing month if it's the same as the first month?
 - global currency dynamic calculation
 - create tracking graphs

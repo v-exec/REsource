@@ -6,13 +6,12 @@ window.onload = function() {
 		password = getCookie('loginPassword');
 		request('verifyLogin', function(r) {
 			if (r === 'true') successfulLogin();
-			else {
-				//load login window
-				loginWindow.style.display = 'block';
-				loginWindow.style.opacity = 1;
-			}
 		});
 	}
+
+	//load login window
+	loginWindow.style.display = 'block';
+	loginWindow.style.opacity = 1;
 }
 
 //login on enter keypress
