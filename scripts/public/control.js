@@ -187,6 +187,13 @@ function changeCurrency() {
 	}
 }
 
+//uses US$ as base for exchange rates
+function calculateExchangeRate(given, amount, desired) {
+	if (given == desired) return amount;
+
+	return amount;
+}
+
 function openColorPicker() {
 	colorOpen = true;
 	colorPicker.style.transform = 'translateX(-1px)';
@@ -233,261 +240,6 @@ function pickIcon(ico) {
 	closeIconPicker();
 }
 
-// CREATION & DELETION
-
-function createLog() {
-	//verify data type
-	if (isNaN(logCreateAmount.value)) {
-		logCreateFeedback.innerText = '"Amount" is not a number.';
-		return;
-	}
-
-	if (!isNaN(logCreateCurrency.value) ||
-		(logCreateCurrency.value != '$') &&
-		logCreateCurrency.value != '¥' &&
-		logCreateCurrency.value != '€' &&
-		logCreateCurrency.value != '円' &&
-		logCreateCurrency.valu != '£') {
-		logCreateFeedback.innerText = '"Currency" is not a valid value.';
-		return;
-	}
-
-	if (isNaN(logCreateYear.value) || isNaN(logCreateMonth.value) || isNaN(logCreateDay.value)) {
-		logCreateFeedback.innerText = '"Date" is not a number.';
-		return;
-	}
-
-	if (logCreateYear.value.toString().length < 4) {
-		logCreateFeedback.innerText = '"Year" is not a valid value.';
-		return;
-	}
-
-	if (logCreateYear.value.toString().indexOf('.') != -1 ||
-		logCreateMonth.value.toString().indexOf('.') != -1 ||
-		logCreateDay.value.toString().indexOf('.') != -1 ||
-		logCreateYear.value.toString().indexOf(',') != -1 ||
-		logCreateMonth.value.toString().indexOf(',') != -1 ||
-		logCreateDay.value.toString().indexOf(',') != -1 ||
-		logCreateYear.value.toString().indexOf('-') != -1 ||
-		logCreateMonth.value.toString().indexOf('-') != -1 ||
-		logCreateDay.value.toString().indexOf('-') != -1) {
-		logCreateFeedback.innerText = '"Date" is not a valid number.';
-		return;
-	}
-
-	if (logCreateMonth.value > 12) {
-		logCreateFeedback.innerText = '"Month" is not a valid number.';
-		return;
-	}
-
-	if (logCreateDay.value > 31) {
-		logCreateFeedback.innerText = '"Day" is not a valid number.';
-		return;
-	}
-
-	//optional time
-	var timePresent = false;
-
-	if (logCreateHour.value || logCreateMinute.value) {
-		timePresent = true;
-
-		if (isNaN(logCreateHour.value)) {
-			logCreateFeedback.innerText = '"Hour" is not a number.';
-			return;
-		}
-
-		if (isNaN(logCreateMinute.value)) {
-			logCreateFeedback.innerText = '"Minute" is not a number.';
-			return;
-		}
-
-		if (logCreateHour.value > 23) {
-			logCreateFeedback.innerText = '"Hour" is not a valid number.';
-			return;
-		}
-
-		if (logCreateMinute.value > 60) {
-			logCreateFeedback.innerText = '"Minute" is not a valid number.';
-			return;
-		}
-	}
-
-	//verify data presence
-	if (logCreateAmount.value == '') {
-		logCreateFeedback.innerText = 'Missing "amount".';
-		return;
-	}
-
-	if (logCreateCurrency.value == '') {
-		logCreateFeedback.innerText = 'Missing "currency".';
-		return;
-	}
-
-	if (logCreateYear.value == '') {
-		logCreateFeedback.innerText = 'Missing "year".';
-		return;
-	}
-
-	if (logCreateMonth.value == '') {
-		logCreateFeedback.innerText = 'Missing "month".';
-		return;
-	}
-
-	if (logCreateDay.value == '') {
-		logCreateFeedback.innerText = 'Missing "day".';
-		return;
-	}
-
-	//create log
-	var date = logCreateYear.value + '-' + logCreateMonth.value + '-' + logCreateDay.value;
-	var time = '00:00';
-	if (timePresent) time = logCreateHour.value + ':' + logCreateMinute.value;
-	var tempLog;
-
-	switch (logFormSelectionType) {
-		case 'Acquisition':
-			if (logCreateSource.value == '') {
-				logCreateFeedback.innerText = 'Missing "source".';
-				return;
-			}
-			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateSource.value, logCreateStorageDestination.value, 0, date, time, logCreateSector.value);
-			request('newLog', null, tempLog.createJSON());
-			break;
-
-		case 'Spending':
-			if (logCreateDestination.value == '') {
-				logCreateFeedback.innerText = 'Missing "destinaion".';
-				return;
-			}
-			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateDestination.value, 0, date, time, logCreateSector.value);
-			request('newLog', null, tempLog.createJSON());
-			break;
-
-		case 'Movement':
-			tempLog = new Log(logCreateAmount.value, logCreateCurrency.value, logFormSelectionType, logCreateStorageSource.value, logCreateStorageDestination.value, logCreateFee.value, date, time, logCreateSector.value);
-			request('newLog', null, tempLog.createJSON());
-			break;
-	}
-
-	logs.push(tempLog);
-	refreshLogList();
-	refreshLogForm();
-	updateStats();
-	toggleMenu('log');
-}
-
-function deleteLog(log) {
-	closeAllLogDeletes();
-
-	request('deleteLog', function() {
-		for (var i = 0; i < logs.length; i++) {
-			if (logs[i].id == log.id) {
-				logs.splice(i, 1);
-				refreshLogList();
-				return;
-			}
-		}
-	}, null, log.id);
-}
-
-function createSector() {
-	if (sectorCreateName.value == '') {
-		sectorCreateFeedback.innerText = 'Missing "name".';
-		return;
-	}
-
-	if (findSector(sectorCreateName.value)) {
-		sectorCreateFeedback.innerText = 'Storage with this name already exists.';
-		return;
-	}
-
-	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
-	sectors.push(tempSector);
-	request('newSector', null, tempSector.createJSON());
-	refreshSectorList();
-	refreshSectorForm();
-	refreshOptions();
-	toggleMenu('sector');
-}
-
-function deleteSector(sector) {
-	closeAllSectorDeletes();
-
-	request('deleteSector', function() {
-		for (var i = 0; i < sectors.length; i++) {
-			if (sectors[i].name == sector.name) {
-				sectors.splice(i, 1);
-				refreshSectorList();
-				return;
-			}
-		}
-	}, null, sector.name);
-}
-
-function createStorage() {
-	if (storageCreateName.value == '') {
-		storageCreateFeedback.innerText = 'Missing "name".';
-		return;
-	}
-
-	if (findStorage(storageCreateName.value)) {
-		storageCreateFeedback.innerText = 'Storage with this name already exists.';
-		return;
-	}
-
-	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
-	storages.push(tempStorage);
-	request('newStorage', null, tempStorage.createJSON());
-	refreshStorageList();
-	refreshStorageForm();
-	refreshOptions();
-	toggleMenu('storage');
-}
-
-function deleteStorage(storage) {
-	closeAllStorageDeletes();
-
-	request('deleteStorage', function() {
-		for (var i = 0; i < storages.length; i++) {
-			if (storages[i].name == storage.name) {
-				storages.splice(i, 1);
-				refreshStorageList();
-				return;
-			}
-		}
-	}, null, storage.name);
-}
-
-function refreshOptions() {
-	//reset
-	logCreateStorageSource.innerText = null;
-	logCreateStorageDestination.innerText = null;
-	logCreateSector.innerText = null;
-
-	//storages
-	for (var i = 0; i < storages.length; i++) {
-		var option = document.createElement('OPTION');
-		option.value = storages[i].name;
-		option.className = 'selectorOption';
-		option.innerText = storages[i].name;
-
-		var optionClone = option.cloneNode(true);
-
-		logCreateStorageSource.appendChild(option);
-		logCreateStorageDestination.appendChild(optionClone);
-	}
-
-	//sectors
-	for (var i = 0; i < sectors.length; i++) {
-		var option = document.createElement('OPTION');
-		option.value = sectors[i].name;
-		option.className = 'selectorOption';
-		option.innerText = sectors[i].name;
-
-		logCreateSector.appendChild(option);
-	}
-}
-
 function updateStats() {
 	var totalAcquisition = 0;
 	var totalSpending = 0;
@@ -495,21 +247,23 @@ function updateStats() {
 	for (var i = 0; i < logs.length; i++) {
 		switch (logs[i].type) {
 			case 'Acquisition':
-				totalAcquisition += parseFloat(logs[i].amount);
+				totalAcquisition += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].amount), currency);
 				break;
 
 			case 'Spending':
-				totalSpending += parseFloat(logs[i].amount);
+				totalSpending += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].amount), currency);
 				break;
 
 			case 'Movement':
-				totalSpending += parseFloat(logs[i].fee);
+				totalSpending += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].fee), currency);
 				break;
 		}
 	}
 
 	footData.innerText = '+' + parseFloat(totalAcquisition).toFixed(2) + currency + '   ' + '-' + parseFloat(totalSpending).toFixed(2) + currency;
 }
+
+// CREATION
 
 function refreshLogList() {
 	//clear all logs
@@ -598,37 +352,34 @@ function refreshStorageList() {
 	}
 }
 
-function refreshLogForm() {
-	logCreateAmount.value = null;
-	logCreateCurrency.value = null;
+function refreshOptions() {
+	//reset
+	logCreateStorageSource.innerText = null;
+	logCreateStorageDestination.innerText = null;
+	logCreateSector.innerText = null;
 
-	logCreateYear.value = null;
-	logCreateMonth.value = null;
-	logCreateDay.value = null;
-	logCreateHour.value = null;
-	logCreateMinute.value = null;
+	//storages
+	for (var i = 0; i < storages.length; i++) {
+		var option = document.createElement('OPTION');
+		option.value = storages[i].name;
+		option.className = 'selectorOption';
+		option.innerText = storages[i].name;
 
-	logCreateSource.value = null;
-	logCreateFee.value = null;
-	logCreateDestination.value = null;
+		var optionClone = option.cloneNode(true);
 
-	logCreateFeedback.innerText = '';
-}
+		logCreateStorageSource.appendChild(option);
+		logCreateStorageDestination.appendChild(optionClone);
+	}
 
-function refreshSectorForm() {
-	sectorCreateName.value = null;
-	sectorCreateColor.style.backgroundColor = '#ccc';
-	sectorCreateIconIcon.innerText = 'trip_origin';
+	//sectors
+	for (var i = 0; i < sectors.length; i++) {
+		var option = document.createElement('OPTION');
+		option.value = sectors[i].name;
+		option.className = 'selectorOption';
+		option.innerText = sectors[i].name;
 
-	sectorCreateFeedback.innerText = '';
-}
-
-function refreshStorageForm() {
-	storageCreateName.value = null;
-	storageCreateColor.style.backgroundColor = '#ccc';
-	storageCreateIconIcon.innerText = 'trip_origin';
-
-	storageCreateFeedback.innerText = '';
+		logCreateSector.appendChild(option);
+	}
 }
 
 function createColors() {

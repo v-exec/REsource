@@ -98,3 +98,45 @@ function closeAllStorageDeletes() {
 		}
 	}
 }
+
+function createStorage() {
+	if (storageCreateName.value == '') {
+		storageCreateFeedback.innerText = 'Missing "name".';
+		return;
+	}
+
+	if (findStorage(storageCreateName.value)) {
+		storageCreateFeedback.innerText = 'Storage with this name already exists.';
+		return;
+	}
+
+	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
+	storages.push(tempStorage);
+	request('newStorage', null, tempStorage.createJSON());
+	refreshStorageList();
+	refreshStorageForm();
+	refreshOptions();
+	toggleMenu('storage');
+}
+
+function deleteStorage(storage) {
+	closeAllStorageDeletes();
+
+	request('deleteStorage', function() {
+		for (var i = 0; i < storages.length; i++) {
+			if (storages[i].name == storage.name) {
+				storages.splice(i, 1);
+				refreshStorageList();
+				return;
+			}
+		}
+	}, null, storage.name);
+}
+
+function refreshStorageForm() {
+	storageCreateName.value = null;
+	storageCreateColor.style.backgroundColor = '#ccc';
+	storageCreateIconIcon.innerText = 'trip_origin';
+
+	storageCreateFeedback.innerText = '';
+}

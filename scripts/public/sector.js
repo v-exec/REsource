@@ -98,3 +98,45 @@ function closeAllSectorDeletes() {
 		}
 	}
 }
+
+function createSector() {
+	if (sectorCreateName.value == '') {
+		sectorCreateFeedback.innerText = 'Missing "name".';
+		return;
+	}
+
+	if (findSector(sectorCreateName.value)) {
+		sectorCreateFeedback.innerText = 'Sector with this name already exists.';
+		return;
+	}
+
+	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
+	sectors.push(tempSector);
+	request('newSector', null, tempSector.createJSON());
+	refreshSectorList();
+	refreshSectorForm();
+	refreshOptions();
+	toggleMenu('sector');
+}
+
+function deleteSector(sector) {
+	closeAllSectorDeletes();
+
+	request('deleteSector', function() {
+		for (var i = 0; i < sectors.length; i++) {
+			if (sectors[i].name == sector.name) {
+				sectors.splice(i, 1);
+				refreshSectorList();
+				return;
+			}
+		}
+	}, null, sector.name);
+}
+
+function refreshSectorForm() {
+	sectorCreateName.value = null;
+	sectorCreateColor.style.backgroundColor = '#ccc';
+	sectorCreateIconIcon.innerText = 'trip_origin';
+
+	sectorCreateFeedback.innerText = '';
+}
