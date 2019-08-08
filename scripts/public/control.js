@@ -340,7 +340,7 @@ function createLog() {
 
 	//create log
 	var date = logCreateYear.value + '-' + logCreateMonth.value + '-' + logCreateDay.value;
-	var time = null;
+	var time = '00:00';
 	if (timePresent) time = logCreateHour.value + ':' + logCreateMinute.value;
 	var tempLog;
 
@@ -611,18 +611,24 @@ function refreshLogForm() {
 	logCreateSource.value = null;
 	logCreateFee.value = null;
 	logCreateDestination.value = null;
+
+	logCreateFeedback.innerText = '';
 }
 
 function refreshSectorForm() {
 	sectorCreateName.value = null;
 	sectorCreateColor.style.backgroundColor = '#ccc';
 	sectorCreateIconIcon.innerText = 'trip_origin';
+
+	sectorCreateFeedback.innerText = '';
 }
 
 function refreshStorageForm() {
 	storageCreateName.value = null;
 	storageCreateColor.style.backgroundColor = '#ccc';
 	storageCreateIconIcon.innerText = 'trip_origin';
+
+	storageCreateFeedback.innerText = '';
 }
 
 function createColors() {

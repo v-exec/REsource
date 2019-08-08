@@ -17,7 +17,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		var h = forceDigitsOnInteger(time.split(':')[0], 2);
 		var min = forceDigitsOnInteger(time.split(':')[1], 2);
 		this.time = h + ':' + min;
-	} else this.time = null;	
+	}
 
 	this.sector = sector;
 
@@ -149,7 +149,7 @@ function Log(amount, logCurrency, type, source, destination, fee, date, time, se
 		//date & time
 		var time = document.createElement('SPAN');
 		time.className = 'logTime';
-		if (this.time) time.innerText = this.processedDate + ' - ' + this.time;
+		if (this.time != '00:00') time.innerText = this.processedDate + ' - ' + this.time;
 		else time.innerText = this.processedDate;
 		log.appendChild(time);
 

@@ -1,4 +1,2 @@
-- deleting wrong log if datetag is in the way
-- creating new datetag for existing month if it's the same as the first month?
 - global currency dynamic calculation
 - create tracking graphs
