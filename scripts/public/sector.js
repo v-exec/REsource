@@ -110,12 +110,16 @@ function createSector() {
 		return;
 	}
 
-	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, sectorCreateColor.style.backgroundColor);
+	var color = sectorCreateColor.style.backgroundColor;
+	if (color == '') color = '#ccc';
+	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, color);
 	sectors.push(tempSector);
+	
 	request('newSector', null, tempSector.createJSON());
 	refreshSectorList();
 	refreshSectorForm();
 	refreshOptions();
+	refreshTracking();
 	toggleMenu('sector');
 }
 
@@ -127,6 +131,7 @@ function deleteSector(sector) {
 			if (sectors[i].name == sector.name) {
 				sectors.splice(i, 1);
 				refreshSectorList();
+				refreshTracking();
 				return;
 			}
 		}

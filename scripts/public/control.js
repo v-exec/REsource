@@ -154,6 +154,7 @@ function changeCurrency() {
 				currencySetting.placeholder = currency;
 				setCookie('currency', currency, 2);
 				updateStats();
+				refreshTracking();
 				break;
 
 			case '¥':
@@ -161,6 +162,7 @@ function changeCurrency() {
 				currencySetting.placeholder = currency;
 				setCookie('currency', currency, 2);
 				updateStats();
+				refreshTracking();
 				break;
 
 			case '€':
@@ -168,6 +170,7 @@ function changeCurrency() {
 				currencySetting.placeholder = currency;
 				setCookie('currency', currency, 2);
 				updateStats();
+				refreshTracking();
 				break;
 
 			case '£':
@@ -175,27 +178,10 @@ function changeCurrency() {
 				currencySetting.placeholder = currency;
 				setCookie('currency', currency, 2);
 				updateStats();
+				refreshTracking();
 				break;		
 		}
 	}
-}
-
-//uses US$ as base for exchange rates
-function convertCurrency(given, amount, desired) {
-	if (given == desired) return amount;
-
-	var noDecimals = false;
-
-	switch(desired) {
-		case '¥':
-			noDecimals = true;
-			break;
-	}
-
-	var exchange = (amount * currencyValues[given]) * currencyValues[desired];
-	if (noDecimals) exchange = Math.round(exchange);
-
-	return exchange;
 }
 
 function openColorPicker() {
@@ -315,6 +301,8 @@ function refreshLogList() {
 		
 		logScreen.appendChild(logs[i].element);
 	}
+
+	updateStats();
 }
 
 function refreshSectorList() {

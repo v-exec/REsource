@@ -88,6 +88,12 @@ var storageCreateFeedback = document.getElementById('createStorageFeedback');
 var colorPicker = document.getElementById('colors');
 var iconPicker = document.getElementById('icons');
 
+//tracking
+var graphHeight = 200;
+var graph = document.getElementById('graph');
+var chart = document.getElementById('chart');
+var legend = document.getElementById('legend');
+
 //states
 var isTracking = true;
 var setOpen = false;
@@ -352,4 +358,32 @@ function forceDigitsOnInteger(number, digits) {
 		}
 		return treatedNumber;
 	} else return number;
+}
+
+//uses US$ as base for exchange rates
+function convertCurrency(given, amount, desired) {
+	if (given == desired) return amount;
+
+	var noDecimals = false;
+
+	switch(desired) {
+		case '¥':
+			noDecimals = true;
+			break;
+	}
+
+	var exchange = amount / currencyValues[given];
+	exchange *= currencyValues[desired];
+
+	if (noDecimals) exchange = Math.round(exchange);
+
+	return exchange;
+}
+
+function daysInMonth (month, year) { 
+	return new Date(year, month, 0).getDate(); 
+}
+
+function remap(value, low1, high1, low2, high2) {
+	return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }

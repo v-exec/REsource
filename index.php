@@ -36,7 +36,9 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 			<div id="main">
 				<div class="page" id="trk">
-					<span>work in progress</span>
+					<div id="graph"></div>
+					<div id="chart"></div>
+					<div id="legend"></div>
 				</div>
 
 				<div class="page" id="log">
@@ -102,7 +104,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 						<span class="createFormFeedback" id="createSectorFeedback"></span>
 					</div>
-					<ul class="setPage" id="sectorList"></ul>
+					<div class="setPage" id="sectorList"></div>
 
 					<a href="#" class="createButton" id="createStorage"><div id="createBarStorage"></div><span id="createButtonTextStorage">+ Storage</span></a>
 					<div class="creationForm" id="focusStorage">
@@ -117,7 +119,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 						<span class="createFormFeedback" id="createStorageFeedback"></span>
 					</div>
-					<ul class="setPage" id="storageList"></ul>
+					<div class="setPage" id="storageList"></div>
 
 					<div class="createButton" id="createSettings"><div id="createBarSettings"></div><span id="createButtonTextSettings">Settings</span></div>
 					<div id="settingsList">
@@ -142,6 +144,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 
 		<script src="scripts/public/init.js"></script>
 		<script src="scripts/public/request.js"></script>
+		<script src="scripts/public/tracking.js"></script>
 
 		<script src="scripts/public/sector.js"></script>
 		<script src="scripts/public/storage.js"></script>

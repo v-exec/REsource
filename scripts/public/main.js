@@ -81,6 +81,9 @@ function successfulLogin() {
 		if (getCookie('currency')) currency = getCookie('currency');
 		currencySetting.placeholder = currency;
 
+		//create tracking graph
+		refreshTracking();
+
 		//update stats
 		updateStats();
 	});

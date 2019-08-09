@@ -374,7 +374,7 @@ function createLog() {
 	logs.push(tempLog);
 	refreshLogList();
 	refreshLogForm();
-	updateStats();
+	refreshTracking();
 	toggleMenu('log');
 }
 
@@ -386,6 +386,7 @@ function deleteLog(log) {
 			if (logs[i].id == log.id) {
 				logs.splice(i, 1);
 				refreshLogList();
+				refreshTracking();
 				return;
 			}
 		}

@@ -110,12 +110,16 @@ function createStorage() {
 		return;
 	}
 
-	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, storageCreateColor.style.backgroundColor);
+	var color = storageCreateColor.style.backgroundColor;
+	if (color == '') color = '#ccc';
+	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, color);
 	storages.push(tempStorage);
+
 	request('newStorage', null, tempStorage.createJSON());
 	refreshStorageList();
 	refreshStorageForm();
 	refreshOptions();
+	refreshTracking();
 	toggleMenu('storage');
 }
 
@@ -127,6 +131,7 @@ function deleteStorage(storage) {
 			if (storages[i].name == storage.name) {
 				storages.splice(i, 1);
 				refreshStorageList();
+				refreshTracking();
 				return;
 			}
 		}
