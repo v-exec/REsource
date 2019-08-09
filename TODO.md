@@ -1,2 +1,1 @@
-- global currency dynamic calculation
 - create tracking graphs

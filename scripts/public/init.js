@@ -101,6 +101,12 @@ var winding = 0;
 
 //settings
 var currency = '¥';
+var currencyValues = {
+'$':1.0,
+'¥':105.0,
+'€':0.88,
+'£':0.8
+};
 
 //color and icon lists
 var colorList = [

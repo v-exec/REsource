@@ -163,13 +163,6 @@ function changeCurrency() {
 				updateStats();
 				break;
 
-			case '円':
-				currency = '円';
-				currencySetting.placeholder = currency;
-				setCookie('currency', currency, 2);
-				updateStats();
-				break;
-
 			case '€':
 				currency = '€';
 				currencySetting.placeholder = currency;
@@ -188,10 +181,21 @@ function changeCurrency() {
 }
 
 //uses US$ as base for exchange rates
-function calculateExchangeRate(given, amount, desired) {
+function convertCurrency(given, amount, desired) {
 	if (given == desired) return amount;
 
-	return amount;
+	var noDecimals = false;
+
+	switch(desired) {
+		case '¥':
+			noDecimals = true;
+			break;
+	}
+
+	var exchange = (amount * currencyValues[given]) * currencyValues[desired];
+	if (noDecimals) exchange = Math.round(exchange);
+
+	return exchange;
 }
 
 function openColorPicker() {
@@ -247,20 +251,25 @@ function updateStats() {
 	for (var i = 0; i < logs.length; i++) {
 		switch (logs[i].type) {
 			case 'Acquisition':
-				totalAcquisition += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].amount), currency);
+				totalAcquisition += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
 				break;
 
 			case 'Spending':
-				totalSpending += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].amount), currency);
+				totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
 				break;
 
 			case 'Movement':
-				totalSpending += calculateExchangeRate(logs[i].currency, parseFloat(logs[i].fee), currency);
+				totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].fee), currency);
 				break;
 		}
 	}
 
-	footData.innerText = '+' + parseFloat(totalAcquisition).toFixed(2) + currency + '   ' + '-' + parseFloat(totalSpending).toFixed(2) + currency;
+	if (currency != '¥') {
+		totalAcquisition = parseFloat(totalAcquisition).toFixed(2);
+		totalSpending = parseFloat(totalSpending).toFixed(2);
+	}
+
+	footData.innerText = '+' + totalAcquisition + currency + '   ' + '-' + totalSpending + currency;
 }
 
 // CREATION
