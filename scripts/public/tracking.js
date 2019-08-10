@@ -3,6 +3,8 @@ function refreshTracking() {
 	chart.innerText = '';
 	legend.innerText = '';
 
+	if (logs.length < 1) return;
+
 	//get current month's spending data
 	var date = new Date();
 	var month = date.getMonth();
