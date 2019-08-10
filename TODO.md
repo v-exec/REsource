@@ -1,1 +1,2 @@
-- create tracking graphs
+- make graph and chart rescale on window rescale
+- move graph and chart for best positioning

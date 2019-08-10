@@ -119,10 +119,11 @@ function createChart() {
 	var oldDegree = 0;
 
 	var radius = (chart.offsetWidth - 80) / 2;
+	var remainingSpace = ((chart.offsetHeight - 80) / 2) - radius;
 
 	for (var i = 0; i < degrees.length; i++) {
 		degree = remap(degrees[i][0], 0, 1, 0, Math.PI * 2);
-		path += '<g transform="translate(' + radius + ',' + radius + ') rotate(-90) scale(1 -1)">';
+		path += '<g transform="translate(' + radius + ',' + (radius + remainingSpace) + ') rotate(-90) scale(1 -1)">';
 		path += '<path d="' + createSvgArc(0, 0, radius, oldDegree, degree + oldDegree) + '" fill="' + degrees[i][1] + '"/></g>';
 		oldDegree += degree;
 	}
