@@ -143,3 +143,8 @@ logCreateSpending.addEventListener('click', function() {
 logCreateMovement.addEventListener('click', function() {
 	switchLogCreateSelection('Movement');
 });
+
+//recreate tracking on window resize to fit new window
+window.onresize = function() {
+	refreshTracking();
+};

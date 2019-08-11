@@ -64,11 +64,11 @@ function createGraph(dates) {
 
 	var lines = document.createElement('DIV');
 	lines.className = 'graphLines';
-	var linesText = '<svg class="graphLinesSVG"><path class="graphLinesSVGPath" d="M0,' + (graphHeight - (daySpendings[0] / (highest + 50) * graphHeight) - 2) + ' ';
+	var linesText = '<svg class="graphLinesSVG"><path class="graphLinesSVGPath" d="M0,' + (graphHeight - (daySpendings[0] / (highest + (highest / 10)) * graphHeight) - 2) + ' ';
 
-	//create graph for each day
+	//create graph point for each day
 	for (var i = 1; i < dateCount; i++) {
-		linesText += 'L' + (graph.offsetWidth / dateCount) * (i + 1) + ',' + (graphHeight - (daySpendings[i] / (highest + 50) * graphHeight) - 2) + ' ';
+		linesText += 'L' + (graph.offsetWidth / dateCount) * (i + 1) + ',' + (graphHeight - (daySpendings[i] / (highest + (highest / 10)) * graphHeight) - 2) + ' ';
 	}
 
 	linesText += '"></path>';
@@ -120,6 +120,8 @@ function createChart() {
 	var degree = 0;
 	var oldDegree = 0;
 
+	//scale circle to smallest aspect
+	chart.style.height = chart.offsetWidth + 'px';
 	var radius = (chart.offsetWidth - 80) / 2;
 	var remainingSpace = ((chart.offsetHeight - 80) / 2) - radius;
 
