@@ -142,8 +142,13 @@ function createLegend() {
 	for (var i = 0; i < sectors.length; i++) {
 		var spendings = 0;
 
+		var date = new Date();
+		var month = date.getMonth();
+
 		for (var j = 0; j < logs.length; j++) {
-			if (logs[j].type == 'Spending' && logs[j].sector == sectors[i].name) {
+			var logDate = new Date(logs[j].date);
+
+			if (logs[j].type == 'Spending' && logs[j].sector == sectors[i].name && logDate.getMonth() == month) {
 				spendings += convertCurrency(logs[j].currency, logs[j].amount, currency);
 			}
 		}

@@ -375,6 +375,7 @@ function createLog() {
 	refreshLogList();
 	refreshLogForm();
 	refreshTracking();
+	updateStats();
 	toggleMenu('log');
 }
 
@@ -387,6 +388,7 @@ function deleteLog(log) {
 				logs.splice(i, 1);
 				refreshLogList();
 				refreshTracking();
+				updateStats();
 				return;
 			}
 		}

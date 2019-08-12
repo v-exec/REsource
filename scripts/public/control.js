@@ -234,19 +234,25 @@ function updateStats() {
 	var totalAcquisition = 0;
 	var totalSpending = 0;
 
+	var date = new Date();
+	var month = date.getMonth();
+
 	for (var i = 0; i < logs.length; i++) {
-		switch (logs[i].type) {
-			case 'Acquisition':
-				totalAcquisition += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
-				break;
+		var logDate = new Date(logs[i].date);
+		if (logDate.getMonth() == month) {
+			switch (logs[i].type) {
+				case 'Acquisition':
+					totalAcquisition += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
+					break;
 
-			case 'Spending':
-				totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
-				break;
+				case 'Spending':
+					totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].amount), currency);
+					break;
 
-			case 'Movement':
-				totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].fee), currency);
-				break;
+				case 'Movement':
+					totalSpending += convertCurrency(logs[i].currency, parseFloat(logs[i].fee), currency);
+					break;
+			}
 		}
 	}
 
