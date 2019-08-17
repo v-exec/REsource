@@ -1,12 +1,10 @@
 <?php
 include 'crypt.php';
 
-session_start();
-
 //check tokens and password
-if (!hash_equals($_SESSION['front'], $_POST['front']) || !password_verify($frontDoor, $_POST['front']) ||
-	!hash_equals($_SESSION['back'], $_POST['back']) || !password_verify($backDoor, $_POST['back']) ||
-	!password_verify($_POST['pass'], $_SESSION['pass'])) {
+if (!password_verify($frontDoor, $_POST['front']) ||
+	!password_verify($backDoor, $_POST['back']) ||
+	!password_verify($_POST['pass'], $pass)) {
 		echo 'Improper credentials.';
 		return;
 	}
