@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'crypt.php';
 
 //check tokens and password
