@@ -313,6 +313,10 @@ function createLog() {
 				logCreateFeedback.innerText = '"Minute" is not a valid number.';
 				return;
 			}
+
+			//format for missing hour or minutes
+			if (logCreateHour.value == '') logCreateHour.value = '00';
+			if (logCreateMinute.value == '') logCreateMinute.value = '00';
 		}
 
 		//verify data presence
