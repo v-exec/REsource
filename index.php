@@ -14,7 +14,7 @@ setcookie('back', $_SESSION['back'], time() + (86400 * 30), "/");
 		<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500|Roboto+Mono:400,700&display=swap&subset=japanese" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
-		<link rel="stylesheet" href="assets/style.css?rnd=3">
+		<link rel="stylesheet" href="assets/style.css">
 	</head>
 	<body>
 		<div id="app">
