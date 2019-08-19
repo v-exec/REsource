@@ -123,7 +123,7 @@ function createChart() {
 	//scale circle to smallest aspect
 	chart.style.height = chart.offsetWidth + 'px';
 	var radius = (chart.offsetWidth - 80) / 2;
-	var remainingSpace = ((chart.offsetHeight - 80) / 2) - radius;
+	var remainingSpace = ((chart.offsetWidth - 80) / 2) - radius;
 
 	for (var i = 0; i < degrees.length; i++) {
 		degree = remap(degrees[i][0], 0, 1, 0, Math.PI * 2);
