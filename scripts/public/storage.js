@@ -100,27 +100,31 @@ function closeAllStorageDeletes() {
 }
 
 function createStorage() {
-	if (storageCreateName.value == '') {
-		storageCreateFeedback.innerText = 'Missing "name".';
-		return;
+	if (awaitingInputStorage) {
+		if (storageCreateName.value == '') {
+			storageCreateFeedback.innerText = 'Missing "name".';
+			return;
+		}
+
+		if (findStorage(storageCreateName.value)) {
+			storageCreateFeedback.innerText = 'Storage with this name already exists.';
+			return;
+		}
+
+		awaitingInputStorage = false;
+
+		var color = storageCreateColor.style.backgroundColor;
+		if (color == '') color = '#ccc';
+		var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, color);
+		storages.push(tempStorage);
+
+		request('newStorage', null, tempStorage.createJSON());
+		refreshStorageList();
+		refreshStorageForm();
+		refreshOptions();
+		refreshTracking();
+		toggleMenu('storage');
 	}
-
-	if (findStorage(storageCreateName.value)) {
-		storageCreateFeedback.innerText = 'Storage with this name already exists.';
-		return;
-	}
-
-	var color = storageCreateColor.style.backgroundColor;
-	if (color == '') color = '#ccc';
-	var tempStorage = new Storage(storageCreateName.value, storageCreateIconIcon.innerText, color);
-	storages.push(tempStorage);
-
-	request('newStorage', null, tempStorage.createJSON());
-	refreshStorageList();
-	refreshStorageForm();
-	refreshOptions();
-	refreshTracking();
-	toggleMenu('storage');
 }
 
 function deleteStorage(storage) {
@@ -131,6 +135,7 @@ function deleteStorage(storage) {
 			if (storages[i].name == storage.name) {
 				storages.splice(i, 1);
 				refreshStorageList();
+				refreshOptions();
 				refreshTracking();
 				return;
 			}
@@ -144,4 +149,9 @@ function refreshStorageForm() {
 	storageCreateIconIcon.innerText = 'trip_origin';
 
 	storageCreateFeedback.innerText = '';
+
+	setTimeout(function() {
+		awaitingInputStorage = true;
+	}, 1000);
+
 }

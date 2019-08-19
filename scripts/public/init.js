@@ -101,6 +101,10 @@ var colorOpen = false;
 var iconOpen = false;
 var openMenu = '';
 var logFormSelectionType = 'Spending';
+var awaitingInputPassword = true;
+var awaitingInputLog = true;
+var awaitingInputSector = true;
+var awaitingInputStorage = true;
 
 //other
 var winding = 0;

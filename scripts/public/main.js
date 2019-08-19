@@ -16,16 +16,23 @@ window.onload = function() {
 
 //login on enter keypress
 function login(e) {
-	if (e.keyCode == 13) {
-		e.preventDefault();
-		password = passwordInput.value;
-		passwordInput.value = null;
-		loginFeedback.innerHTML = '';
+	if (awaitingInputPassword) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+			password = passwordInput.value;
+			passwordInput.value = null;
+			loginFeedback.innerHTML = '';
 
-		request('verifyLogin', function(r) {
-			if (r === 'true') successfulLogin();
-			else loginFeedback.innerHTML = 'incorrect password';
-		});
+			awaitingInputPassword = false;
+
+			request('verifyLogin', function(r) {
+				if (r === 'true') successfulLogin();
+				else {
+					loginFeedback.innerHTML = 'incorrect password';
+					awaitingInputPassword = true;
+				}
+			});
+		}
 	}
 }
 

@@ -100,27 +100,31 @@ function closeAllSectorDeletes() {
 }
 
 function createSector() {
-	if (sectorCreateName.value == '') {
-		sectorCreateFeedback.innerText = 'Missing "name".';
-		return;
-	}
+	if (awaitingInputSector) {
+		if (sectorCreateName.value == '') {
+			sectorCreateFeedback.innerText = 'Missing "name".';
+			return;
+		}
 
-	if (findSector(sectorCreateName.value)) {
-		sectorCreateFeedback.innerText = 'Sector with this name already exists.';
-		return;
-	}
+		if (findSector(sectorCreateName.value)) {
+			sectorCreateFeedback.innerText = 'Sector with this name already exists.';
+			return;
+		}
 
-	var color = sectorCreateColor.style.backgroundColor;
-	if (color == '') color = '#ccc';
-	var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, color);
-	sectors.push(tempSector);
-	
-	request('newSector', null, tempSector.createJSON());
-	refreshSectorList();
-	refreshSectorForm();
-	refreshOptions();
-	refreshTracking();
-	toggleMenu('sector');
+		awaitingInputSector = false;
+
+		var color = sectorCreateColor.style.backgroundColor;
+		if (color == '') color = '#ccc';
+		var tempSector = new Sector(sectorCreateName.value, sectorCreateIconIcon.innerText, color);
+		sectors.push(tempSector);
+		
+		request('newSector', null, tempSector.createJSON());
+		refreshSectorList();
+		refreshSectorForm();
+		refreshOptions();
+		refreshTracking();
+		toggleMenu('sector');
+	}
 }
 
 function deleteSector(sector) {
@@ -131,6 +135,7 @@ function deleteSector(sector) {
 			if (sectors[i].name == sector.name) {
 				sectors.splice(i, 1);
 				refreshSectorList();
+				refreshOptions();
 				refreshTracking();
 				return;
 			}
@@ -144,4 +149,9 @@ function refreshSectorForm() {
 	sectorCreateIconIcon.innerText = 'trip_origin';
 
 	sectorCreateFeedback.innerText = '';
+
+	setTimeout(function() {
+		awaitingInputSector = true;
+	}, 1000);
+
 }
