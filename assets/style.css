@@ -652,6 +652,8 @@ a:focus {
 }
 
 #createLogTime {
+	display: inline-block;
+	white-space: nowrap;
 	float: right;
 	clear: right;
 }
