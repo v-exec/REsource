@@ -92,7 +92,6 @@ function newStorage($data) {
 function deleteLog($id) {
 	$c = file_get_contents('../../data/log.json');
 	$j = json_decode($c, TRUE);
-	$data = json_decode($data);
 
 	//remove element
 	for ($i = 0; $i < sizeof($j['logs']); $i++) {
@@ -118,7 +117,6 @@ function deleteLog($id) {
 function deleteSector($name) {
 	$c = file_get_contents('../../data/sector.json');
 	$j = json_decode($c, TRUE);
-	$data = json_decode($data);
 
 	//remove element
 	for ($i = 0; $i < sizeof($j['sectors']); $i++) {
@@ -139,7 +137,6 @@ function deleteSector($name) {
 function deleteStorage($name) {
 	$c = file_get_contents('../../data/storage.json');
 	$j = json_decode($c, TRUE);
-	$data = json_decode($data);
 
 	//remove element
 	for ($i = 0; $i < sizeof($j['storages']); $i++) {
